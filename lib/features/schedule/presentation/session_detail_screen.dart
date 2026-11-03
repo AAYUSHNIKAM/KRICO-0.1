@@ -12,7 +12,6 @@ import '../../../design_system/widgets/buttons/primary_button.dart';
 import '../../../design_system/widgets/buttons/outline_button.dart';
 import '../../../services/providers.dart';
 import '../../../providers/auth_provider.dart';
-import '../../../core/gamification/krico_xp_system.dart';
 import '../data/session_qr_service.dart';
 import 'widgets/session_qr_modal.dart';
 import 'widgets/session_attendance_scanner_modal.dart';

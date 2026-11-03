@@ -131,7 +131,7 @@ class _ParentDashboardState extends ConsumerState<ParentDashboard> {
                 Text('Training logged for athlete!  +25 XP Awarded'),
               ],
             ),
-            backgroundColor: const Color(0xFF0F172A),
+            backgroundColor: Theme.of(context).brightness == Brightness.dark ? const Color(0xFF0F172A) : AppColors.lightTextPrimary,
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(borderRadius: AppRadius.brLg),
           ),
@@ -298,7 +298,7 @@ class _ParentDashboardState extends ConsumerState<ParentDashboard> {
                                           color: AppColors.volt,
                                           shape: BoxShape.circle,
                                           border: Border.all(
-                                            color: const Color(0xFF0F172A),
+                                            color: isDark ? const Color(0xFF0F172A) : Colors.white,
                                             width: 1.5,
                                           ),
                                           boxShadow: [
@@ -917,7 +917,7 @@ class _ParentDashboardState extends ConsumerState<ParentDashboard> {
                 ? null
                 : const [
                     BoxShadow(
-                      color: Color(0x0A0F172A),
+                      color: AppColors.lightShadow,
                       blurRadius: 10,
                       offset: Offset(0, 2),
                     ),
@@ -1046,7 +1046,7 @@ class _ParentDashboardState extends ConsumerState<ParentDashboard> {
                 ? null
                 : const [
                     BoxShadow(
-                      color: Color(0x0A0F172A),
+                      color: AppColors.lightShadow,
                       blurRadius: 10,
                       offset: Offset(0, 2),
                     ),

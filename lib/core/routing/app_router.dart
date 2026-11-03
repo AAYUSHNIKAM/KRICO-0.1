@@ -38,7 +38,7 @@ import '../../models/user_model.dart';
 import '../../providers/auth_provider.dart';
 import '../../services/providers.dart';
 import '../../features/community/presentation/community_screen.dart';
-import '../../features/squad_goals/presentation/squad_goals_screen.dart';
+// squad_goals retired
 import '../../features/video_analysis/presentation/video_analysis_screen.dart';
 import '../../features/home/presentation/performance_tab.dart';
 import '../../features/booking/presentation/my_bookings_screen.dart';
@@ -352,13 +352,7 @@ GoRouter buildRouter() {
       ),
       GoRoute(
         path: AppRoutes.squadGoals,
-        builder: (context, state) {
-          final currentUser = FirebaseAuth.instance.currentUser;
-          final extra = state.extra as Map<String, dynamic>?;
-          final playerId = extra?['playerId'] as String? ?? currentUser?.uid ?? '';
-          final playerName = extra?['playerName'] as String? ?? currentUser?.displayName ?? 'Athlete';
-          return SquadGoalsScreen(playerId: playerId, playerName: playerName);
-        },
+        redirect: (context, state) => AppRoutes.performance,
       ),
       GoRoute(
         path: AppRoutes.videoAnalysis,

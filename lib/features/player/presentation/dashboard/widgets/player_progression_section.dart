@@ -78,23 +78,16 @@ class _ProgressionContent extends StatelessWidget {
       (r) => r.rank == playerRank,
       orElse: () => RankModel.ranks.first,
     );
-    final weeklyXp = metrics.fold<int>(
-      0, (sum, m) => sum + ((m['value'] as num?)?.toInt() ?? 0),
-    );
-    final monthlyXp = weeklyXp * 4;
+    final level = LevelModel.getLevel(playerPoints);
     final nextRank = playerRank < RankModel.ranks.length
         ? RankModel.ranks[playerRank]
         : RankModel.ranks.last;
     final personalBest = metrics.isEmpty
-        ? 0
-        : metrics.map((m) => (m['value'] as num?)?.toDouble() ?? 0).reduce(
+        ? 0.0
+        : metrics.map((m) => (m['value'] as num?)?.toDouble() ?? 0.0).reduce(
             (a, b) => a > b ? a : b,
           );
-    final avgMetric = metrics.isEmpty
-        ? 0.0
-        : metrics.fold(0.0, (sum, m) => sum + ((m['value'] as num?)?.toDouble() ?? 0)) /
-            metrics.length;
-    final consistency = metrics.isEmpty ? 0.0 : (avgMetric / 100).clamp(0.0, 1.0);
+    final consistency = (LevelModel.getProgress(playerPoints)).clamp(0.0, 1.0);
 
     return Container(
       decoration: BoxDecoration(
@@ -133,20 +126,20 @@ class _ProgressionContent extends StatelessWidget {
               children: [
                 Expanded(
                   child: _MiniStat(
-                    label: 'Weekly XP',
-                    value: '$weeklyXp',
-                    icon: Icons.stars_rounded,
-                    color: AppColors.warning,
+                    label: 'Total XP',
+                    value: '$playerPoints XP',
+                    icon: Icons.bolt_rounded,
+                    color: AppColors.volt,
                     isDark: isDark,
                   ),
                 ),
                 const SizedBox(width: SpacingScale.s12),
                 Expanded(
                   child: _MiniStat(
-                    label: 'Monthly XP',
-                    value: '$monthlyXp',
-                    icon: Icons.auto_awesome_rounded,
-                    color: AppColors.emerald,
+                    label: 'Athlete Level',
+                    value: 'Level ${level.level} (${level.title})',
+                    icon: Icons.shield_rounded,
+                    color: AppColors.cyan,
                     isDark: isDark,
                   ),
                 ),

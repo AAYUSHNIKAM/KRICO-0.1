@@ -189,13 +189,13 @@ abstract class AppTheme {
 
   static ThemeData get light {
     final colorScheme = ColorScheme.light(
-      primary: AppColors.voltDark,
+      primary: AppColors.lightPrimary,
       primaryContainer: AppColors.lightSelected,
-      secondary: AppColors.cyanDark,
-      secondaryContainer: AppColors.cyanLight.withValues(alpha: 0.2),
-      tertiary: AppColors.voltDark,
+      secondary: AppColors.lightAccentOrange,
+      secondaryContainer: AppColors.lightAccentOrange.withValues(alpha: 0.15),
+      tertiary: AppColors.cyanDark,
       surface: AppColors.lightBackground,
-      surfaceContainerHighest: AppColors.lightCard,
+      surfaceContainerHighest: AppColors.lightSurfaceSecondary,
       onSurface: AppColors.lightTextPrimary,
       onSurfaceVariant: AppColors.lightTextSecondary,
       error: AppColors.danger,
@@ -237,7 +237,7 @@ abstract class AppTheme {
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          side: const BorderSide(color: AppColors.lightBorder, width: 1.0),
+          side: const BorderSide(color: AppColors.lightBorder, width: 0.8),
         ),
         color: AppColors.lightCard,
         surfaceTintColor: Colors.transparent,
@@ -256,7 +256,7 @@ abstract class AppTheme {
         style: OutlinedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 16),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-          side: const BorderSide(color: AppColors.lightBorder, width: 1.5),
+          side: const BorderSide(color: AppColors.lightBorder, width: 1.2),
           foregroundColor: AppColors.lightTextPrimary,
           textStyle: AppTextStyles.button,
         ),
@@ -316,7 +316,7 @@ abstract class AppTheme {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         labelStyle: AppTextStyles.labelSm.copyWith(color: AppColors.lightTextPrimary),
-        backgroundColor: AppColors.lightCard,
+        backgroundColor: AppColors.lightSurfaceSecondary,
         side: const BorderSide(color: AppColors.lightBorder),
       ),
       switchTheme: SwitchThemeData(
@@ -342,7 +342,7 @@ abstract class AppTheme {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
       dialogTheme: DialogThemeData(
-        backgroundColor: AppColors.lightCard,
+        backgroundColor: AppColors.lightSurface,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
           side: const BorderSide(color: AppColors.lightBorder, width: 1.0),

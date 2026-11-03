@@ -1,3 +1,4 @@
+import '../../../design_system/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
@@ -32,8 +33,8 @@ class WorkspaceHome extends StatelessWidget {
     final primary = destinations.length > 1 ? destinations[1] : destinations[0];
     final secondary = destinations.length > 2 ? destinations[2] : primary;
 
-    final cardBg = isDark ? const Color(0xFF131D31) : Colors.white;
-    final borderColor = isDark ? const Color(0xFF1E293B) : const Color(0xFFE2E8F0);
+    final cardBg = isDark ? const Color(0xFF131D31) : AppColors.lightCard;
+    final borderColor = isDark ? const Color(0xFF1E293B) : AppColors.lightBorder;
 
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
@@ -197,7 +198,7 @@ class WorkspaceHome extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
-                    color: isDark ? Colors.white : const Color(0xFF0F172A),
+                    color: isDark ? Colors.white : AppColors.lightTextPrimary,
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -258,10 +259,10 @@ class WorkspaceHome extends StatelessWidget {
                                             Container(
                                               padding: const EdgeInsets.all(10),
                                               decoration: BoxDecoration(
-                                                color: const Color(0xFFCCFF00).withValues(alpha: 0.15),
+                                                color: (isDark ? const Color(0xFFCCFF00) : AppColors.lightAccentVolt).withValues(alpha: 0.15),
                                                 borderRadius: BorderRadius.circular(12),
                                               ),
-                                              child: Icon(destinations[i].icon, color: const Color(0xFFCCFF00), size: 22),
+                                              child: Icon(destinations[i].icon, color: isDark ? const Color(0xFFCCFF00) : AppColors.lightAccentVolt, size: 22),
                                             ),
                                             const SizedBox(height: 14),
                                             Text(
@@ -269,7 +270,7 @@ class WorkspaceHome extends StatelessWidget {
                                               style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w800,
-                                                color: isDark ? Colors.white : const Color(0xFF0F172A),
+                                                color: isDark ? Colors.white : AppColors.lightTextPrimary,
                                               ),
                                             ),
                                             const SizedBox(height: 4),
@@ -277,7 +278,7 @@ class WorkspaceHome extends StatelessWidget {
                                               destinations[i].description,
                                               style: TextStyle(
                                                 fontSize: 12.5,
-                                                color: isDark ? const Color(0xFF94A3B8) : const Color(0xFF64748B),
+                                                color: isDark ? AppColors.textSecondary : AppColors.lightTextSecondary,
                                               ),
                                             ),
                                           ],

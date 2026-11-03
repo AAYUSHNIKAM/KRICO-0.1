@@ -8,16 +8,16 @@ class ThemeModeNotifier extends Notifier<ThemeMode> {
   @override
   ThemeMode build() {
     _load();
-    return ThemeMode.dark;
+    return ThemeMode.light;
   }
 
   Future<void> _load() async {
     final prefs = await SharedPreferences.getInstance();
-    final stored = prefs.getString('themeMode') ?? 'dark';
+    final stored = prefs.getString('themeMode') ?? 'light';
     state = switch (stored) {
-      'light' => ThemeMode.light,
+      'dark' => ThemeMode.dark,
       'system' => ThemeMode.system,
-      _ => ThemeMode.dark,
+      _ => ThemeMode.light,
     };
   }
 
@@ -25,13 +25,13 @@ class ThemeModeNotifier extends Notifier<ThemeMode> {
     state = mode;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('themeMode', switch (mode) {
-      ThemeMode.light => 'light',
+      ThemeMode.dark => 'dark',
       ThemeMode.system => 'system',
-      _ => 'dark',
+      _ => 'light',
     });
   }
 
   void toggle() {
-    set(state == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark);
+    set(state == ThemeMode.light ? ThemeMode.dark : ThemeMode.light);
   }
 }

@@ -168,28 +168,30 @@ class _PerformanceContent extends StatelessWidget {
                 ),
               ),
             ],
-            const SizedBox(height: SpacingScale.s16),
-            Row(
-              children: [
-                Expanded(
-                  child: _ScoreBar(
-                    label: 'Recovery',
-                    value: 74,
-                    color: AppColors.emerald,
-                    isDark: isDark,
+            if (hasData) ...[
+              const SizedBox(height: SpacingScale.s16),
+              Row(
+                children: [
+                  Expanded(
+                    child: _ScoreBar(
+                      label: 'Latest Score',
+                      value: ((metrics.last['value'] as num?)?.toDouble() ?? 0).clamp(0.0, 100.0),
+                      color: AppColors.emerald,
+                      isDark: isDark,
+                    ),
                   ),
-                ),
-                const SizedBox(width: SpacingScale.s12),
-                Expanded(
-                  child: _ScoreBar(
-                    label: 'Fatigue',
-                    value: 35,
-                    color: AppColors.warning,
-                    isDark: isDark,
+                  const SizedBox(width: SpacingScale.s12),
+                  Expanded(
+                    child: _ScoreBar(
+                      label: 'Workout Consistency',
+                      value: (metrics.length * 15.0).clamp(10.0, 100.0),
+                      color: AppColors.cyan,
+                      isDark: isDark,
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
+            ],
           ],
         ),
       ),

@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/gamification/krico_xp_system.dart';
 import '../../../design_system/colors/app_colors.dart';
 import '../../../design_system/radius/radius.dart';
-import '../../../design_system/spacing/spacing_scale.dart';
 import '../../../design_system/typography/text_styles.dart';
 import '../../../providers/auth_provider.dart';
 
@@ -33,7 +32,7 @@ class GlobalLeaderboardScreen extends ConsumerWidget {
         actions: [
           IconButton(
             tooltip: 'XP System Info',
-            icon: const Icon(Icons.info_outline_rounded, color: AppColors.primary),
+            icon: Icon(Icons.info_outline_rounded, color: isDark ? AppColors.primary : AppColors.lightAccentVolt),
             onPressed: () => _showXpInfoModal(context, isDark),
           ),
         ],
@@ -46,7 +45,7 @@ class GlobalLeaderboardScreen extends ConsumerWidget {
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator(color: AppColors.primary));
+            return Center(child: CircularProgressIndicator(color: isDark ? AppColors.primary : AppColors.lightAccentVolt));
           }
 
           final docs = snapshot.data?.docs ?? [];
@@ -78,14 +77,14 @@ class GlobalLeaderboardScreen extends ConsumerWidget {
                             end: Alignment.bottomRight,
                           ),
                           borderRadius: AppRadius.brXl2,
-                          border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
+                          border: Border.all(color: (isDark ? AppColors.primary : AppColors.lightAccentVolt).withValues(alpha: 0.3)),
                         ),
                         child: Row(
                           children: [
                             Container(
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
-                                color: AppColors.primary.withValues(alpha: 0.15),
+                                color: (isDark ? AppColors.primary : AppColors.lightAccentVolt).withValues(alpha: 0.15),
                                 shape: BoxShape.circle,
                               ),
                               child: const Text('🏆', style: TextStyle(fontSize: 24)),
@@ -333,13 +332,21 @@ class GlobalLeaderboardScreen extends ConsumerWidget {
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
         color: isCurrentUser
-            ? AppColors.primary.withValues(alpha: 0.1)
+            ? (isDark ? AppColors.primary.withValues(alpha: 0.1) : AppColors.lightVoltBadge.withValues(alpha: 0.25))
             : cardBg,
         borderRadius: AppRadius.brXl,
         border: Border.all(
-          color: isCurrentUser ? AppColors.primary : borderColor,
+          color: isCurrentUser ? (isDark ? AppColors.primary : AppColors.lightAccentVolt) : borderColor,
           width: isCurrentUser ? 1.5 : 0.8,
         ),
+        boxShadow: [
+          if (!isDark)
+            const BoxShadow(
+              color: AppColors.lightShadow,
+              blurRadius: 6,
+              offset: Offset(0, 2),
+            ),
+        ],
       ),
       child: Row(
         children: [
@@ -358,10 +365,10 @@ class GlobalLeaderboardScreen extends ConsumerWidget {
           const SizedBox(width: 8),
           CircleAvatar(
             radius: 18,
-            backgroundColor: AppColors.primary.withValues(alpha: 0.15),
+            backgroundColor: (isDark ? AppColors.primary : AppColors.lightAccentVolt).withValues(alpha: 0.15),
             child: Text(
               p.name.isNotEmpty ? p.name[0].toUpperCase() : 'A',
-              style: const TextStyle(fontWeight: FontWeight.w800, color: AppColors.primary),
+              style: TextStyle(fontWeight: FontWeight.w800, color: isDark ? AppColors.primary : AppColors.lightAccentVolt),
             ),
           ),
           const SizedBox(width: 12),
@@ -388,10 +395,10 @@ class GlobalLeaderboardScreen extends ConsumerWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
                         decoration: BoxDecoration(
-                          color: AppColors.primary,
+                          color: isDark ? AppColors.primary : AppColors.heroLightCta,
                           borderRadius: AppRadius.brSm,
                         ),
-                        child: const Text('YOU', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w900, color: Colors.white)),
+                        child: Text('YOU', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w900, color: isDark ? AppColors.midnightObsidian : AppColors.heroLightCtaText)),
                       ),
                     ],
                   ],
@@ -408,10 +415,10 @@ class GlobalLeaderboardScreen extends ConsumerWidget {
             children: [
               Text(
                 p.totalXp.toString() + ' XP',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w900,
-                  color: AppColors.primary,
+                  color: isDark ? AppColors.primary : AppColors.lightAccentVolt,
                 ),
               ),
               Container(

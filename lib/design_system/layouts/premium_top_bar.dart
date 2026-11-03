@@ -93,7 +93,7 @@ class _PremiumTopBarState extends ConsumerState<PremiumTopBar> {
           color: bgColor,
           borderRadius: AppRadius.brLg,
           border: Border.all(
-            color: _searchFocused ? AppColors.primary : Colors.transparent,
+            color: _searchFocused ? (isDark ? AppColors.primary : AppColors.lightAccentVolt) : Colors.transparent,
             width: 1.5,
           ),
         ),
@@ -146,7 +146,9 @@ class _PremiumTopBarState extends ConsumerState<PremiumTopBar> {
               width: 8,
               height: 8,
               decoration: BoxDecoration(
-                color: AppColors.volt,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? AppColors.volt
+                    : AppColors.lightAccentOrange,
                 shape: BoxShape.circle,
                 border: Border.all(
                   color: Theme.of(context).brightness == Brightness.dark
@@ -156,7 +158,9 @@ class _PremiumTopBarState extends ConsumerState<PremiumTopBar> {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.volt.withValues(alpha: 0.8),
+                    color: (Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.volt
+                        : AppColors.lightAccentOrange).withValues(alpha: 0.8),
                     blurRadius: 4,
                     spreadRadius: 1,
                   ),

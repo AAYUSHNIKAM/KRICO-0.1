@@ -36,13 +36,13 @@ class AppBottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final accentColor = color ?? (isDark ? const Color(0xFFCCFF00) : AppColors.primary);
+    final accentColor = color ?? (isDark ? const Color(0xFFCCFF00) : AppColors.lightAccentVolt);
     final dockBg = isDark
         ? const Color(0xE610141D)
         : const Color(0xF2FFFFFF);
     final borderColor = isDark
         ? Colors.white.withValues(alpha: 0.10)
-        : Colors.black.withValues(alpha: 0.08);
+        : AppColors.lightBorder;
 
     return SafeArea(
       top: false,

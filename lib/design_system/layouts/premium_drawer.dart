@@ -157,7 +157,7 @@ class PremiumDrawer extends StatelessWidget {
                   item.icon,
                   size: 20,
                   color: item.selected
-                      ? AppColors.primary
+                      ? (isDark ? AppColors.primary : AppColors.lightAccentVolt)
                       : (isDark ? AppColors.textSecondary : AppColors.lightTextSecondary),
                 ),
                 const SizedBox(width: SpacingScale.s12),
@@ -179,12 +179,12 @@ class PremiumDrawer extends StatelessWidget {
                       vertical: 1,
                     ),
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withValues(alpha: 0.12),
+                      color: (isDark ? AppColors.primary : AppColors.lightAccentVolt).withValues(alpha: 0.12),
                       borderRadius: AppRadius.brFull,
                     ),
                     child: Text(
                       item.badge!,
-                      style: AppTextStyles.captionXs.copyWith(color: AppColors.primary),
+                      style: AppTextStyles.captionXs.copyWith(color: isDark ? AppColors.primary : AppColors.lightAccentVolt),
                     ),
                   ),
               ],

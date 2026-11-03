@@ -359,7 +359,9 @@ class _PremiumShellState extends ConsumerState<PremiumShell> {
                           width: 8,
                           height: 8,
                           decoration: BoxDecoration(
-                            color: AppColors.volt,
+                            color: Theme.of(context).brightness == Brightness.dark
+                                ? AppColors.volt
+                                : AppColors.lightAccentOrange,
                             shape: BoxShape.circle,
                             border: Border.all(
                               color: Theme.of(context).brightness == Brightness.dark
@@ -369,7 +371,9 @@ class _PremiumShellState extends ConsumerState<PremiumShell> {
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color: AppColors.volt.withValues(alpha: 0.8),
+                                color: (Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.volt
+                                    : AppColors.lightAccentOrange).withValues(alpha: 0.8),
                                 blurRadius: 4,
                                 spreadRadius: 1,
                               ),
@@ -695,10 +699,10 @@ class _PremiumShellState extends ConsumerState<PremiumShell> {
                   width: 36,
                   height: 36,
                   decoration: BoxDecoration(
-                    color: AppColors.primary,
+                    color: isDark ? AppColors.primary : AppColors.lightAccentVolt,
                     borderRadius: AppRadius.brLg,
                   ),
-                  child: const Icon(AppIcons.sports, size: 20, color: Colors.white),
+                  child: Icon(AppIcons.sports, size: 20, color: isDark ? Colors.black : Colors.white),
                 ),
                 const SizedBox(width: SpacingScale.s10),
                 Text(

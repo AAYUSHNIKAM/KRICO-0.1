@@ -20,8 +20,8 @@ class LiveStadiumTicketHero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final cardBg = isDark ? const Color(0xFF0F172A) : Colors.white;
-    final borderColor = isDark ? const Color(0xFF1E293B) : const Color(0xFFE2E8F0);
+    final cardBg = isDark ? const Color(0xFF0F172A) : AppColors.lightCard;
+    final borderColor = isDark ? const Color(0xFF1E293B) : AppColors.lightBorder;
     final textColor = isDark ? AppColors.textPrimary : AppColors.lightTextPrimary;
     final subColor = isDark ? AppColors.textSecondary : AppColors.lightTextSecondary;
 
@@ -75,11 +75,22 @@ class LiveStadiumTicketHero extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Athletic Top Accent Stripe
+              Container(
+                height: 3,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: isDark
+                        ? const [AppColors.volt, AppColors.cyan]
+                        : const [AppColors.lightVoltBadge, AppColors.lightAccentOrange, AppColors.lightAccentVolt],
+                  ),
+                ),
+              ),
               // Ticket Header Bar
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 decoration: BoxDecoration(
-                  color: isDark ? const Color(0xFF131D31) : const Color(0xFFF1F5F9),
+                  color: isDark ? const Color(0xFF131D31) : AppColors.lightSurfaceSecondary,
                   border: Border(bottom: BorderSide(color: borderColor, width: 0.5)),
                 ),
                 child: Wrap(
@@ -91,7 +102,7 @@ class LiveStadiumTicketHero extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                       decoration: BoxDecoration(
-                        color: AppColors.volt,
+                        color: isDark ? AppColors.volt : AppColors.lightVoltBadge,
                         borderRadius: AppRadius.brSm,
                       ),
                       child: const Row(
@@ -151,7 +162,7 @@ class LiveStadiumTicketHero extends StatelessWidget {
                                 style: AppTextStyles.captionXs.copyWith(
                                   letterSpacing: 1.2,
                                   fontWeight: FontWeight.w800,
-                                  color: isDark ? AppColors.volt : AppColors.voltDark,
+                                  color: isDark ? AppColors.volt : AppColors.lightAccentVolt,
                                 ),
                               ),
                               const SizedBox(height: 2),
@@ -186,20 +197,20 @@ class LiveStadiumTicketHero extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.volt.withValues(alpha: 0.4), width: 1.5),
+                            border: Border.all(color: (isDark ? AppColors.volt : AppColors.lightAccentVolt).withValues(alpha: 0.4), width: 1.5),
                             borderRadius: AppRadius.brLg,
-                            color: AppColors.volt.withValues(alpha: 0.08),
+                            color: (isDark ? AppColors.volt : AppColors.lightAccentVolt).withValues(alpha: 0.08),
                           ),
-                          child: const Column(
+                          child: Column(
                             children: [
-                              Icon(Icons.qr_code_2_rounded, size: 32, color: AppColors.volt),
-                              SizedBox(height: 2),
+                              Icon(Icons.qr_code_2_rounded, size: 32, color: isDark ? AppColors.volt : AppColors.lightAccentVolt),
+                              const SizedBox(height: 2),
                               Text(
                                 'GATE PASS',
                                 style: TextStyle(
                                   fontSize: 8,
                                   fontWeight: FontWeight.w900,
-                                  color: AppColors.volt,
+                                  color: isDark ? AppColors.volt : AppColors.lightAccentVolt,
                                   letterSpacing: 0.5,
                                 ),
                               ),
@@ -218,8 +229,8 @@ class LiveStadiumTicketHero extends StatelessWidget {
                         ElevatedButton.icon(
                           onPressed: () => _showGatePassModal(context, sport, venue, dateTime),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.volt,
-                            foregroundColor: AppColors.midnightObsidian,
+                            backgroundColor: isDark ? AppColors.volt : AppColors.heroLightCta,
+                            foregroundColor: isDark ? AppColors.midnightObsidian : AppColors.heroLightCtaText,
                             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                             shape: RoundedRectangleBorder(borderRadius: AppRadius.brLg),
                             elevation: 0,
@@ -262,9 +273,9 @@ class LiveStadiumTicketHero extends StatelessWidget {
         final isDark = Theme.of(context).brightness == Brightness.dark;
         return Container(
           decoration: BoxDecoration(
-            color: isDark ? const Color(0xFF0F172A) : Colors.white,
+            color: isDark ? const Color(0xFF0F172A) : AppColors.lightSurface,
             borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
-            border: Border.all(color: AppColors.volt.withValues(alpha: 0.4)),
+            border: Border.all(color: (isDark ? AppColors.volt : AppColors.lightAccentVolt).withValues(alpha: 0.4)),
           ),
           padding: const EdgeInsets.all(28),
           child: Column(
@@ -282,7 +293,7 @@ class LiveStadiumTicketHero extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.verified_rounded, color: AppColors.volt, size: 22),
+                  Icon(Icons.verified_rounded, color: isDark ? AppColors.volt : AppColors.lightAccentVolt, size: 22),
                   const SizedBox(width: 8),
                   Text(
                     'OFFICIAL GATE PASS',
@@ -303,7 +314,7 @@ class LiveStadiumTicketHero extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.volt.withValues(alpha: 0.3),
+                      color: (isDark ? AppColors.volt : AppColors.lightAccentVolt).withValues(alpha: isDark ? 0.3 : 0.12),
                       blurRadius: 20,
                       offset: const Offset(0, 4),
                     ),
@@ -323,16 +334,16 @@ class LiveStadiumTicketHero extends StatelessWidget {
                   color: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('MANUAL ENTRY PIN: ', style: TextStyle(fontSize: 12, color: Colors.grey)),
+                    const Text('MANUAL ENTRY PIN: ', style: TextStyle(fontSize: 12, color: Colors.grey)),
                     Text(
                       '829 - 410',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w900,
-                        color: AppColors.volt,
+                        color: isDark ? AppColors.volt : AppColors.lightAccentVolt,
                         letterSpacing: 1.5,
                       ),
                     ),

@@ -39,10 +39,10 @@ class _PrimaryButtonState extends State<PrimaryButton> {
     final isDisabled = widget.disabled || widget.loading;
     final bgColor = isDisabled
         ? (isDark ? AppColors.surfaceSecondary : AppColors.lightSurfaceSecondary)
-        : AppColors.primary;
+        : (isDark ? AppColors.primary : AppColors.heroLightCta);
     final fgColor = isDisabled
-        ? AppColors.textDisabled
-        : AppColors.textInverse;
+        ? (isDark ? AppColors.textDisabled : AppColors.lightTextDisabled)
+        : (isDark ? AppColors.textInverse : AppColors.heroLightCtaText);
 
     final hPad = widget.size == ButtonSize.sm
         ? SpacingScale.s12
@@ -71,7 +71,7 @@ class _PrimaryButtonState extends State<PrimaryButton> {
           duration: DurationTokens.fast,
           curve: Curves.easeOut,
           decoration: BoxDecoration(
-            color: _hovered && !isDisabled ? AppColors.primaryHover : bgColor,
+            color: _hovered && !isDisabled ? (isDark ? AppColors.primaryHover : const Color(0xFF2E352B)) : bgColor,
             borderRadius: AppRadius.brLg,
             border: Border.all(
               color: isDark ? AppColors.border : AppColors.lightBorder,

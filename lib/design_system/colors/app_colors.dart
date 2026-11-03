@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 abstract final class AppColors {
   AppColors._();
@@ -42,7 +42,7 @@ abstract final class AppColors {
   static const voltHover = Color(0xFFD4FF33);
   static const heroDarkCta = Color(0xFFCCFF00);
   static const heroDarkCtaText = Color(0xFF090A0F);
-  static const heroLightCta = Color(0xFF0F172A);
+  static const heroLightCta = Color(0xFF20251D);
   static const heroLightCtaText = Color(0xFFFFFFFF);
 
   // Text Colors (Dark Mode)
@@ -69,32 +69,46 @@ abstract final class AppColors {
   static const shimmerBase = Color(0xFF131722);
   static const shimmerHighlight = Color(0xFF1E2333);
 
-  // Semantic Light Colors (Crisp Athletic Porcelain)
-  static const lightBackground = Color(0xFFF8FAFC);
+  // Semantic Light Colors (Warm Athletic Premium)
+  // Background & Surfaces
+  static const lightBackground = Color(0xFFF6F4EE);
   static const lightSurface = Color(0xFFFFFFFF);
-  static const lightSurfaceSecondary = Color(0xFFF1F5F9);
+  static const lightSurfaceSecondary = Color(0xFFEDEFE7);
   static const lightSurfaceElevated = Color(0xFFFFFFFF);
   static const lightCard = Color(0xFFFFFFFF);
-  static const lightDivider = Color(0xFFE2E8F0);
+  static const lightDivider = Color(0xFFEAECE4);
 
-  static const lightTextPrimary = Color(0xFF0F172A);
-  static const lightTextSecondary = Color(0xFF475569);
-  static const lightTextTertiary = Color(0xFF64748B);
-  static const lightTextDisabled = Color(0xFF94A3B8);
+  // Light Accents
+  static const lightPrimary = Color(0xFF76A200);
+  static const lightPrimaryHover = Color(0xFF689100);
+  static const lightAccentVolt = Color(0xFF76A200);
+  static const lightVoltBadge = Color(0xFFB7E532);
+  static const lightAccentOrange = Color(0xFFFF8A45);
+  static const lightOrangeHover = Color(0xFFF07933);
 
-  static const lightBorder = Color(0xFFE2E8F0);
-  static const lightBorderHover = Color(0xFFCBD5E1);
-  static const lightBorderFocus = Color(0xFF0F172A);
+  // Light Text
+  static const lightTextPrimary = Color(0xFF20251D);
+  static const lightTextSecondary = Color(0xFF777D72);
+  static const lightTextTertiary = Color(0xFF9DA398);
+  static const lightTextDisabled = Color(0xFFB5BBAF);
 
-  static const lightHover = Color(0x080F172A);
-  static const lightPressed = Color(0x140F172A);
-  static const lightFocus = Color(0x330F172A);
-  static const lightSelected = Color(0x0F0F172A);
+  // Light Borders
+  static const lightBorder = Color(0xFFE5E6DE);
+  static const lightBorderHover = Color(0xFFD5D7CC);
+  static const lightBorderFocus = Color(0xFF20251D);
 
-  static const lightGlass = Color(0xCCFFFFFF);
-  static const lightOverlay = Color(0x660F172A);
-  static const lightShimmerBase = Color(0xFFE2E8F0);
-  static const lightShimmerHighlight = Color(0xFFF1F5F9);
+  // Light Interactive States
+  static const lightHover = Color(0x0A20251D);
+  static const lightPressed = Color(0x1420251D);
+  static const lightFocus = Color(0x3376A200);
+  static const lightSelected = Color(0x1476A200);
+
+  // Light Misc
+  static const lightGlass = Color(0xEBFFFFFF);
+  static const lightOverlay = Color(0x6620251D);
+  static const lightShimmerBase = Color(0xFFEDEFE7);
+  static const lightShimmerHighlight = Color(0xFFF6F4EE);
+  static const lightShadow = Color(0x0A20251D);
 
   // Leaderboard / Medal Colors
   static const gold = Color(0xFFF59E0B);

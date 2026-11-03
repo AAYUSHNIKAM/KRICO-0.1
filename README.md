@@ -1,42 +1,28 @@
-﻿# KRICO - Krida & Coach Sports Ecosystem Platform
+# KRICO - Krida & Coach Sports Ecosystem Platform (v0.1)
 
+[![Deploy to GitHub Pages](https://github.com/AAYUSHNIKAM/KRICO-0.1/actions/workflows/deploy.yml/badge.svg)](https://github.com/AAYUSHNIKAM/KRICO-0.1/actions/workflows/deploy.yml)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-2ea44f?style=flat&logo=github)](https://aayushnikam.github.io/KRICO-0.1/)
 [![Flutter](https://img.shields.io/badge/Flutter-3.22+-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.4+-0175C2?logo=dart&logoColor=white)](https://dart.dev)
 [![Firebase](https://img.shields.io/badge/Firebase-Backend-FFCA28?logo=firebase&logoColor=black)](https://firebase.google.com)
+[![Theme](https://img.shields.io/badge/Default%20Theme-Warm%20Athletic%20Light-76A200)](https://aayushnikam.github.io/KRICO-0.1/)
 [![Platform](https://img.shields.io/badge/Platforms-Android%20%7C%20iOS%20%7C%20Web%20%7C%20Desktop-4CAF50)](#platforms-supported)
 [![State Management](https://img.shields.io/badge/State-Flutter%20Riverpod%20v3-blueviolet)](https://riverpod.dev)
 [![Routing](https://img.shields.io/badge/Navigation-GoRouter-orange)](https://pub.dev/packages/go_router)
 
 **KRICO** is an end-to-end, multi-role sports management and athlete empowerment platform. Built on Flutter and powered by Google Cloud & Firebase, KRICO seamlessly connects **Athletes (Players)**, **Coaches**, **Sports Academies**, **Parents**, and **Ecosystem Administrators** in a unified, high-performance digital environment.
 
----
-
-## Table of Contents
-
-- [Core Value Proposition](#core-value-proposition)
-- [Multi-Role Architecture](#multi-role-architecture)
-- [Key Features](#key-features)
-- [Branching Strategy](#branching-strategy)
-- [Technology Stack](#technology-stack)
-- [Directory Structure](#directory-structure)
-- [Getting Started & Setup](#getting-started--setup)
-  - [Prerequisites](#prerequisites)
-  - [Step 1: Clone Repository](#step-1-clone-repository)
-  - [Step 2: Install Dependencies](#step-2-install-dependencies)
-  - [Step 3: Firebase Configuration](#step-3-firebase-configuration)
-  - [Step 4: Run Application](#step-4-run-application)
-- [Building for Production](#building-for-production)
-- [100% Free Web Hosting & Custom Domain Guide](#100-free-web-hosting--custom-domain-guide)
-- [License & Contributions](#license--contributions)
+**Live Application URL**: [https://aayushnikam.github.io/KRICO-0.1/](https://aayushnikam.github.io/KRICO-0.1/)
 
 ---
 
-## Core Value Proposition
+## What's New in v0.1
 
-- **Unified Sports Network**: Eliminates fragmented communication between coaches, venues, academies, and athletes.
-- **Accredited Athlete Progression**: 15-tier progression system offering formal vector PDF certifications and shareable in-app medals with QR cryptographic verification.
-- **Verified Escrow & Contracts**: Transparent fee structures (10% platform, 10% opportunity, 10% savings) with digital dual-party signing.
-- **Responsive Omni-Platform**: Single codebase serving Android smartphones, iPhones, iPad/tablets, high-res web browsers, and desktop platforms.
+- **Warm Athletic Premium Light Theme (Default)**: A custom-designed light interface combining warm ivory foundations (`#F6F4EE`), crisp porcelain card surfaces (`#FFFFFF`), precision dual-layer ambient shadows, and electric fluorescent volt badges (`#B7E532` on `#20251D` with 11.5:1 contrast).
+- **Cyber-Athletic Obsidian Dark Theme**: Futuristic cockpit theme (`#090A0F`) with neon lime (`#CCFF00`), cyan HUD glows, and deep-contrast glassmorphic telemetry cards.
+- **Coach-Verified Telemetry Engine**: Authentic XP, streak, and verified drill counters linked directly to coach session attendance.
+- **Physical VIP Stadium Pass**: High-gloss stadium credential hero with dynamic athletic header striping, real-time countdowns, and QR gate verification.
+- **Responsive 3-Column Navigation System**: Seamless multi-role layouts automatically adapting between 360px mobile viewports, 800px tablets, and 1280px+ wide desktop cockpits.
 
 ---
 
@@ -58,300 +44,100 @@ KRICO provisions dedicated experiences for each stakeholder:
 ```
 
 1. **Player (Athlete)**:
-   - Heads-Up Dashboard (HUD) with training streak, daily missions, progression milestones, and recent performance telemetry.
-   - Coach and venue discovery with instant booking.
-   - Interactive 15-tier milestone certificates with social sharing and official vector PDF export.
-   - Video analysis with frame-by-frame coach feedback.
+   - Command Center with verified athletic telemetry, training rhythm streaks, and level progression.
+   - Live stadium ticket hero with interactive QR gate pass access.
+   - 15-tier athletic certification showcase with vector PDF exports.
+   - Coach discovery across 30 Olympic and academy sports.
+   - Attendance ledger tracking verified coach sessions.
 
 2. **Coach**:
-   - Availability and session management with automated calendar clash avoidance.
-   - Dynamic coaching packages, student rosters, and earnings analytics.
-   - Digital contracts with transparent commission splits and signature flows.
-   - Job opportunities board posted by accredited academies.
+   - Command center with daily session timetable, athlete rosters, and real-time billing value.
+   - Urgent pending booking request banner with 1-tap booking acceptance.
+   - Training routines and 100% KRICO XP allocation configurations.
+   - Availability and session calendar with conflict avoidance.
 
 3. **Academy**:
    - Batch formation and schedule management with capacity tracking.
    - Staff recruitment (job posting, application review, coach contracts).
-   - Advertising campaign creator and student enrollment tracking.
+   - Student enrollment tracking and academy analytics.
 
 4. **Parent**:
-   - Multi-child athlete performance monitoring (speed, stamina, accuracy, attendance).
-   - Direct coach messaging and scheduled session approvals.
-   - Secure payment and subscription management.
+   - Training session logger for duration, effort rating (/5), and energy levels.
+   - Direct coach communication and scheduled session oversight.
+   - Linked athlete progress and attendance monitoring.
 
 5. **Administrator**:
    - Platform-wide KPI counters (active users, total bookings, verified venues, platform revenue).
-   - Venue database verification and approval.
-   - Promotional coupon engine and role permission audits.
+   - Role permission audits and verification reviews.
 
 ---
 
-## Key Features
+## Design System & Theme Engine
 
-- **Decentralized Role Routing**: Instant switching between roles via `GoRouter` with state-preserving shells.
-- **Milestone Registry**: 15 custom-crafted achievement tiers featuring luxury vector ornaments, verified stamps, and high-fidelity social image export.
-- **Real-time Messaging**: Multi-channel in-app chat with attachment capabilities backed by Firestore.
-- **Interactive Geospatial Search**: Google Maps integration for venue and turf discovery filtered by sport, distance, and ratings.
-- **Interactive Telemetry**: High-performance charting (`fl_chart`) for athletic growth metrics over time.
+| Property | Warm Athletic Light (Default) | Cyber-Athletic Dark |
+| :--- | :--- | :--- |
+| **Canvas Background** | Warm Ivory (`#F6F4EE`) | Midnight Obsidian (`#090A0F`) |
+| **Card Surface** | Pure Porcelain (`#FFFFFF` to `#FAFAF7`) | Deep Slate (`#131722`) |
+| **Surface Secondary** | Soft Warm Neutral (`#EDEFE7`) | Pitch Surface (`#161A24`) |
+| **Primary Accent** | Athletic Olive (`#76A200`) | Neon Volt (`#CCFF00`) |
+| **High-Energy Badge** | Fluorescent Lime (`#B7E532` on `#20251D`) | Electric Volt (`#CCFF00` on `#090A0F`) |
+| **Contrast Ratio** | **11.5:1** (Badges) / **4.8:1** (Icons) | **14.2:1** (High-Contrast HUD) |
+| **Hero Actions** | Authoritative Charcoal (`#20251D`) | High-Luminance Volt (`#CCFF00`) |
+| **Borders** | Warm Mineral (`#E5E6DE`) | Slate Obsidian (`#222736`) |
 
 ---
 
 ## Branching Strategy
 
-This repository follows a structured enterprise branching model:
-
-| Branch | Purpose | Stability | Deployment Target |
-|---|---|---|---|
-| `master` | Production releases and tags | Highly Stable | Production Web & App Stores |
-| `qa` | Staging, QA testing, integration validation | Pre-release | Staging / Beta TestFlight / Internal Testing |
-| `dev` | Active development, feature merges, daily work | Experimental | Local Dev & Development builds |
-
-### Typical Workflow
-
-```bash
-# 1. Start from dev
-git checkout dev
-git pull origin dev
-
-# 2. Create your feature branch
-git checkout -b feature/your-feature-name
-
-# 3. Commit changes and merge back to dev
-git commit -m "feat: Add new booking flow"
-git push origin feature/your-feature-name
-
-# 4. Promote from dev -> qa (for testing)
-git checkout qa
-git merge dev
-git push origin qa
-
-# 5. Promote from qa -> master (for production)
-git checkout master
-git merge qa
-git push origin master
-```
+| Branch | Purpose | Deployment Pipeline |
+| :--- | :--- | :--- |
+| `master` | Production release branch | Deployed live to [GitHub Pages](https://aayushnikam.github.io/KRICO-0.1/) |
+| `qa` | Staging & quality assurance verification | Automated QA CI/CD checks |
+| `dev` | Active development & feature integration | Branch for active development & test suites |
 
 ---
 
 ## Technology Stack
 
-- **Framework**: [Flutter](https://flutter.dev) (v3.22+)
-- **Language**: [Dart](https://dart.dev) (v3.4+)
-- **State Management**: [Riverpod 3.0](https://riverpod.dev)
-- **Routing**: [GoRouter 17.0](https://pub.dev/packages/go_router)
-- **Backend & Cloud**:
-  - Firebase Authentication (Google Sign-In, Email/Password)
-  - Cloud Firestore (Real-time NoSQL database)
-  - Firebase Storage (Athlete documents, media, video captures)
-  - Firebase Cloud Messaging (Push notifications)
-- **UI & Graphics**:
-  - Google Fonts (Roboto typography)
-  - FL Chart (Analytics and metrics visualization)
-  - Flutter Animate (Fluid micro-interactions and transitions)
-  - Printing & PDF (Vector certificate rendering)
-  - QR Flutter (Secure booking and accreditation verification)
+- **Framework**: [Flutter 3.22+](https://flutter.dev) (Web, Android, iOS, Desktop)
+- **Language**: [Dart 3.4+](https://dart.dev)
+- **State Management**: [Flutter Riverpod v3](https://riverpod.dev)
+- **Routing**: [GoRouter v17](https://pub.dev/packages/go_router)
+- **Database & Cloud**: Firebase Authentication, Cloud Firestore, Cloud Storage
+- **Typography & Icons**: Google Fonts (Inter), Material Rounded Icons
+- **PDF Generation**: [pdf / printing](https://pub.dev/packages/pdf)
+- **CI/CD**: GitHub Actions deploying to GitHub Pages
 
 ---
 
-## Directory Structure
-
-```
-KRICO/
-â”œâ”€â”€ android/                  # Android native project and Gradle configuration
-â”œâ”€â”€ ios/                      # iOS native project and CocoaPods configuration
-â”œâ”€â”€ web/                      # Flutter web entrypoint, manifest, and icons
-â”œâ”€â”€ assets/                   # Vector badges, logos, sport icons, and fonts
-â”œâ”€â”€ certificates_showcase/    # 15 Milestone vector PDF and UI snapshot showcases
-â”œâ”€â”€ docs/                     # Architectural specifications and audit documents
-â”œâ”€â”€ lib/
-â”‚   â”œâ”€â”€ core/                 # Constants, theme, routing, error helpers, utilities
-â”‚   â”œâ”€â”€ design_system/        # Design tokens, color scheme, navigation layouts, buttons
-â”‚   â”œâ”€â”€ features/             # Feature-driven modules
-â”‚   â”‚   â”œâ”€â”€ academy/          # Academy batch management & dashboards
-â”‚   â”‚   â”œâ”€â”€ admin/            # Platform administration console
-â”‚   â”‚   â”œâ”€â”€ auth/             # Login, signup, password reset, and onboarding
-â”‚   â”‚   â”œâ”€â”€ booking/          # Session booking, scheduling, and slot selection
-â”‚   â”‚   â”œâ”€â”€ chat/             # Real-time chat list & detail views
-â”‚   â”‚   â”œâ”€â”€ coach/            # Coach dashboard, availability, and profile
-â”‚   â”‚   â”œâ”€â”€ home/             # Multi-role shells and navigation tabs
-â”‚   â”‚   â”œâ”€â”€ player/           # Athlete dashboard, progression HUD, certificates
-â”‚   â”‚   â”œâ”€â”€ squad_goals/      # Squad challenges and team milestones
-â”‚   â”‚   â”œâ”€â”€ venue/            # Venue discovery and turf details
-â”‚   â”‚   â””â”€â”€ video_analysis/   # Frame-by-frame video feedback
-â”‚   â”œâ”€â”€ models/               # Domain data models with serialization
-â”‚   â”œâ”€â”€ providers/            # Riverpod state providers
-â”‚   â”œâ”€â”€ services/             # Firestore, Auth, PDF, and cloud services
-â”‚   â””â”€â”€ main.dart             # Application root entrypoint
-â”œâ”€â”€ test/                     # Unit and integration test suites
-â”œâ”€â”€ .firebaserc               # Firebase project target configuration
-â”œâ”€â”€ firebase.json             # Firebase hosting and index settings
-â”œâ”€â”€ firestore.rules           # Cloud Firestore security rules
-â”œâ”€â”€ storage.rules             # Firebase Storage security rules
-â””â”€â”€ pubspec.yaml              # Project manifest and package dependencies
-```
-
----
-
-## Getting Started & Setup
+## Getting Started
 
 ### Prerequisites
 
-Ensure you have installed:
-1. **Flutter SDK** (Version `>=3.22.0`): Run `flutter doctor` to verify.
-2. **Git**: Version control.
-3. **Android Studio** or **VS Code** with Flutter and Dart extensions.
-4. **Google Chrome** (for running and debugging the web application).
-5. **Node.js & Firebase CLI** (optional, for deploying rules or hosting):
-   ```bash
-   npm install -g firebase-tools
-   ```
+- [Flutter SDK](https://docs.flutter.dev/get-started/install) (`>= 3.22.0`)
+- [Dart SDK](https://dart.dev/get-dart) (`>= 3.4.0`)
+- Chrome browser (for Flutter Web development)
 
----
-
-### Step 1: Clone Repository
-
-Clone your preferred branch:
+### Quick Start
 
 ```bash
-# Clone the development branch
-git clone -b dev https://github.com/AAYUSHNIKAM/KRICO.git
+# 1. Clone repository
+git clone https://github.com/AAYUSHNIKAM/KRICO-0.1.git
+cd KRICO-0.1
 
-# Navigate into the project folder
-cd KRICO
-```
-
----
-
-### Step 2: Install Dependencies
-
-Fetch all Dart and Flutter packages:
-
-```bash
+# 2. Get dependencies
 flutter pub get
-```
 
----
+# 3. Run static analysis & tests
+flutter analyze --no-pub
+flutter test --no-pub
 
-### Step 3: Firebase Configuration
-
-KRICO uses Firebase for backend storage and authentication.
-
-1. Create a Firebase project in the [Firebase Console](https://console.firebase.google.com).
-2. Configure FlutterFire using the FlutterFire CLI:
-   ```bash
-   dart pub global activate flutterfire_cli
-   flutterfire configure
-   ```
-3. Enable **Email/Password** and **Google Sign-In** under Authentication.
-4. Deploy the security rules and indexes included in the repository:
-   ```bash
-   firebase deploy --only firestore:rules,storage:rules
-   ```
-
----
-
-### Step 4: Run Application
-
-#### Run on Web (Chrome)
-```bash
+# 4. Launch locally in Chrome
 flutter run -d chrome
 ```
 
-#### Run on Android Device / Emulator
-```bash
-flutter run -d android
-```
-
-#### Run on iOS Simulator (macOS only)
-```bash
-flutter run -d ios
-```
-
-#### Run Automated Test Suites
-```bash
-flutter test
-```
-
 ---
 
-## Building for Production
+## License & Credits
 
-### Web Release Build
-```bash
-flutter build web --release
-```
-The optimized bundle will be generated in `build/web/`.
-
-### Android APK / App Bundle
-```bash
-# Split-per-ABI APKs
-flutter build apk --split-per-abi
-
-# Production Google Play App Bundle
-flutter build appbundle
-```
-
----
-
-## 100% Free Web Hosting & Custom Domain Guide
-
-You can host the KRICO Flutter Web app at **$0.00 / month forever** using any of the following reliable services:
-
-### Option 1: Firebase Hosting (Recommended - 100% Free)
-Since KRICO already uses Firebase, Firebase Hosting offers:
-- **Free domains provided**: `krico.web.app` and `krico.firebaseapp.com`
-- Free SSL certificates, global SSD-backed CDN, and custom domain connection at no cost.
-
-**How to Deploy**:
-```bash
-# 1. Build the production web bundle
-flutter build web --release
-
-# 2. Deploy to Firebase Hosting
-firebase login
-firebase deploy --only hosting
-```
-
----
-
-### Option 2: Cloudflare Pages (Free - Unlimited Bandwidth)
-Cloudflare Pages provides blazing-fast edge performance with completely unmetered bandwidth:
-- **Free subdomain provided**: `krico.pages.dev`
-- Unlimited requests, automatic HTTPS, and direct GitHub repo auto-deployment.
-
-**How to Setup**:
-1. Sign up at [pages.cloudflare.com](https://pages.cloudflare.com) (free).
-2. Connect your GitHub repository (`AAYUSHNIKAM/KRICO`).
-3. Set the build command:
-   ```bash
-   flutter/bin/flutter build web --release
-   ```
-4. Set Output directory to: `build/web`
-5. Cloudflare will publish it automatically at `https://krico.pages.dev` whenever you push to `master`.
-
----
-
-### Option 3: GitHub Pages (100% Free via GitHub Actions)
-Host directly inside GitHub with automatic CI/CD:
-- **Free domain provided**: `https://aayushnikam.github.io/KRICO/`
-
-**How to Setup**:
-1. Push your code to the `master` branch.
-2. In your repo, go to **Settings > Pages**.
-3. Under **Build and deployment**, select **GitHub Actions**.
-4. GitHub will build the Flutter web app and host it completely free.
-
----
-
-### Getting a Free Developer Custom Domain (`krico.<domain>`)
-If you want a free custom address like `krico.is-a.dev`:
-- Visit [is-a.dev](https://is-a.dev/) (a free registry for developers).
-- Fork their repository, add a `krico.json` CNAME pointing to your GitHub Pages or Cloudflare Pages URL.
-- Once merged (usually 24 hours), your website will be live at `https://krico.is-a.dev` at zero cost!
-
----
-
-## License & Contributions
-
-Developed and maintained by **Aayush Nikam**.
-All rights reserved. Community contributions and pull requests are welcomed across the `dev` branch.
+Developed for the **KRICO Sports Ecosystem**. All rights reserved.

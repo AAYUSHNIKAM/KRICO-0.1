@@ -1,11 +1,9 @@
-﻿name: Deploy Flutter Web to GitHub Pages
+name: Deploy Flutter Web to GitHub Pages
 
 on:
   push:
     branches:
       - master
-      - main
-      - qa
   workflow_dispatch:
 
 permissions:
@@ -34,7 +32,7 @@ jobs:
         run: flutter pub get
 
       - name: Build Flutter Web
-        run: flutter build web --release --base-href "/KRICO/"
+        run: flutter build web --release --base-href "/KRICO-0.1/"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

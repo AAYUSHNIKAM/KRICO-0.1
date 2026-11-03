@@ -20,7 +20,6 @@ import '../../../providers/profile_providers.dart';
 import '../../../services/providers.dart';
 import '../../../core/routing/app_router.dart';
 import '../../../core/widgets/user_avatar.dart';
-import '../../challenges/presentation/challenge_create_sheet.dart';
 import '../../../services/progress_and_gamification_service.dart';
 import 'widgets/certificate_viewer_dialog.dart';
 
@@ -264,14 +263,8 @@ class _ProfileHeader extends ConsumerWidget {
         ? ref.watch(isFollowingProvider((followerId: currentUserId!, followedId: user.uid)))
         : null;
 
-    final canChallenge =
-        currentUserId != null && !isSelf && user.role == UserRole.player;
     final canBook =
         currentUserId != null && !isSelf && user.role == UserRole.coach;
-    final viewerAsync = currentUserId != null
-        ? ref.watch(publicUserProfileProvider(currentUserId!))
-        : null;
-    final viewerName = viewerAsync?.asData?.value?.name ?? '';
 
     return Container(
       decoration: BoxDecoration(
@@ -493,15 +486,7 @@ class _ProfileHeader extends ConsumerWidget {
                               onTap: () => _startBooking(context, ref),
                             ),
                           ],
-                          if (canChallenge) ...[
-                            const SizedBox(height: SpacingScale.s12),
-                            _actionButton(
-                              icon: Icons.bolt_rounded,
-                              label: 'Challenge',
-                              isPrimary: false,
-                              onTap: () => _startChallenge(context, ref, viewerName),
-                            ),
-                          ],
+
                         ],
                       ),
                   ],
@@ -713,17 +698,7 @@ class _ProfileHeader extends ConsumerWidget {
     }
   }
 
-  void _startChallenge(BuildContext context, WidgetRef ref, String challengerName) {
-    final challengerId = currentUserId;
-    if (challengerId == null || challengerId == user.uid) return;
-    showCreateChallengeSheet(
-      context,
-      ref,
-      challengerId: challengerId,
-      challengerName: challengerName.isNotEmpty ? challengerName : challengerId,
-      initialOpponent: user,
-    );
-  }
+
 
   void _startBooking(BuildContext context, WidgetRef ref) {
     final coach = CoachModel(

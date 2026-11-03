@@ -110,9 +110,9 @@ class _CoachDiscoveryScreenState extends ConsumerState<CoachDiscoveryScreen> {
                 ]),
               );
             },
-            loading: () => const SliverFillRemaining(
+            loading: () => SliverFillRemaining(
               child: Center(
-                child: CircularProgressIndicator(color: AppColors.primary),
+                child: CircularProgressIndicator(color: isDark ? AppColors.primary : AppColors.lightAccentVolt),
               ),
             ),
             error: (e, _) => SliverFillRemaining(
@@ -262,7 +262,7 @@ class _CoachDiscoveryScreenState extends ConsumerState<CoachDiscoveryScreen> {
               decoration: InputDecoration(
                 hintText: 'Search by coach name, sport, city or drill...',
                 hintStyle: AppTextStyles.bodySm.copyWith(color: isDark ? AppColors.textTertiary : AppColors.lightTextTertiary),
-                prefixIcon: const Icon(Icons.search_rounded, color: AppColors.primary, size: 20),
+                prefixIcon: Icon(Icons.search_rounded, color: isDark ? AppColors.primary : AppColors.lightAccentVolt, size: 20),
                 suffixIcon: _searchQuery.isNotEmpty
                     ? IconButton(
                         icon: const Icon(Icons.clear_rounded, size: 18),
@@ -308,7 +308,7 @@ class _CoachDiscoveryScreenState extends ConsumerState<CoachDiscoveryScreen> {
                 Text(
                   '1. SELECT SPORT FIRST',
                   style: AppTextStyles.labelSm.copyWith(
-                    color: AppColors.primary,
+                    color: isDark ? AppColors.primary : AppColors.lightAccentVolt,
                     fontWeight: FontWeight.w700,
                     letterSpacing: 1.2,
                   ),
@@ -470,12 +470,12 @@ class _CoachDiscoveryScreenState extends ConsumerState<CoachDiscoveryScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
         decoration: BoxDecoration(
           color: isHighlighted
-              ? AppColors.primary.withValues(alpha: 0.15)
+              ? (isDark ? AppColors.primary.withValues(alpha: 0.15) : AppColors.lightVoltBadge.withValues(alpha: 0.35))
               : (isDark ? const Color(0xFF141926) : Colors.white),
           borderRadius: AppRadius.brFull,
           border: Border.all(
             color: isHighlighted
-                ? AppColors.primary
+                ? (isDark ? AppColors.primary : AppColors.lightAccentVolt)
                 : (isDark ? AppColors.border : AppColors.lightBorder).withValues(alpha: 0.4),
             width: isHighlighted ? 1.2 : 0.8,
           ),
@@ -486,14 +486,18 @@ class _CoachDiscoveryScreenState extends ConsumerState<CoachDiscoveryScreen> {
             Icon(
               icon,
               size: 14,
-              color: isHighlighted ? AppColors.primary : (isDark ? AppColors.textSecondary : AppColors.lightTextSecondary),
+              color: isHighlighted
+                  ? (isDark ? AppColors.primary : AppColors.lightTextPrimary)
+                  : (isDark ? AppColors.textSecondary : AppColors.lightTextSecondary),
             ),
             const SizedBox(width: 6),
             Text(
               label,
               style: AppTextStyles.caption.copyWith(
                 fontWeight: isHighlighted ? FontWeight.w700 : FontWeight.w500,
-                color: isHighlighted ? AppColors.primary : (isDark ? AppColors.textPrimary : AppColors.lightTextPrimary),
+                color: isHighlighted
+                    ? (isDark ? AppColors.primary : AppColors.lightTextPrimary)
+                    : (isDark ? AppColors.textPrimary : AppColors.lightTextPrimary),
               ),
             ),
             const SizedBox(width: 4),
@@ -565,7 +569,7 @@ class _CoachDiscoveryScreenState extends ConsumerState<CoachDiscoveryScreen> {
               children: [
                 Row(
                   children: [
-                    _buildAvatar(coach, 46),
+                    _buildAvatar(coach, 46, isDark),
                     const SizedBox(width: SpacingScale.s10),
                     Expanded(
                       child: Column(
@@ -586,13 +590,13 @@ class _CoachDiscoveryScreenState extends ConsumerState<CoachDiscoveryScreen> {
                               ),
                               if (coach.isVerified) ...[
                                 const SizedBox(width: 4),
-                                const Icon(Icons.verified_rounded, size: 14, color: AppColors.primary),
+                                Icon(Icons.verified_rounded, size: 14, color: isDark ? AppColors.primary : AppColors.lightAccentVolt),
                               ],
                             ],
                           ),
                           Text(
                             coach.specialization ?? 'Certified Coach',
-                            style: AppTextStyles.captionXs.copyWith(color: AppColors.primary),
+                            style: AppTextStyles.captionXs.copyWith(color: isDark ? AppColors.primary : AppColors.lightAccentVolt),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -624,7 +628,7 @@ class _CoachDiscoveryScreenState extends ConsumerState<CoachDiscoveryScreen> {
                       children: [
                         Text('Rate', style: AppTextStyles.captionXs.copyWith(color: isDark ? AppColors.textTertiary : AppColors.lightTextTertiary)),
                         Text(
-                          '₹${coach.hourlyRate.toStringAsFixed(0)}/hr',
+                        '\u20B9${coach.hourlyRate.toStringAsFixed(0)} / hr',
                           style: AppTextStyles.title3.copyWith(
                             fontWeight: FontWeight.w800,
                             color: AppColors.emerald,
@@ -635,8 +639,8 @@ class _CoachDiscoveryScreenState extends ConsumerState<CoachDiscoveryScreen> {
                     ElevatedButton(
                       onPressed: () => context.push('/coach/${coach.coachId}'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primary,
-                        foregroundColor: const Color(0xFF0F172A),
+                        backgroundColor: isDark ? AppColors.primary : AppColors.heroLightCta,
+                        foregroundColor: isDark ? AppColors.midnightObsidian : AppColors.heroLightCtaText,
                         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                         shape: RoundedRectangleBorder(borderRadius: AppRadius.brLg),
                         textStyle: AppTextStyles.labelSm.copyWith(fontWeight: FontWeight.w700),
@@ -670,7 +674,7 @@ class _CoachDiscoveryScreenState extends ConsumerState<CoachDiscoveryScreen> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildAvatar(coach, 54),
+              _buildAvatar(coach, 54, isDark),
               const SizedBox(width: SpacingScale.s12),
               Expanded(
                 child: Column(
@@ -689,7 +693,7 @@ class _CoachDiscoveryScreenState extends ConsumerState<CoachDiscoveryScreen> {
                         ),
                         if (coach.isVerified) ...[
                           const SizedBox(width: 6),
-                          const Icon(Icons.verified_rounded, size: 16, color: AppColors.primary),
+                          Icon(Icons.verified_rounded, size: 16, color: isDark ? AppColors.primary : AppColors.lightAccentVolt),
                         ],
                       ],
                     ),
@@ -701,13 +705,13 @@ class _CoachDiscoveryScreenState extends ConsumerState<CoachDiscoveryScreen> {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                           decoration: BoxDecoration(
-                            color: AppColors.primary.withValues(alpha: 0.12),
+                            color: (isDark ? AppColors.primary : AppColors.lightAccentVolt).withValues(alpha: 0.12),
                             borderRadius: AppRadius.brFull,
                           ),
                           child: Text(
                             coach.specialization ?? 'Sports Coach',
                             style: AppTextStyles.captionXs.copyWith(
-                              color: AppColors.primary,
+                              color: isDark ? AppColors.primary : AppColors.lightAccentVolt,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -785,7 +789,7 @@ class _CoachDiscoveryScreenState extends ConsumerState<CoachDiscoveryScreen> {
                 children: [
                   Text('SESSION FEE', style: AppTextStyles.captionXs.copyWith(color: isDark ? AppColors.textTertiary : AppColors.lightTextTertiary, letterSpacing: 0.8)),
                   Text(
-                    '₹${coach.hourlyRate.toStringAsFixed(0)} / hr',
+                        '\u20B9${coach.hourlyRate.toStringAsFixed(0)} / hr',
                     style: AppTextStyles.title3.copyWith(
                       fontWeight: FontWeight.w800,
                       color: AppColors.emerald,
@@ -809,8 +813,8 @@ class _CoachDiscoveryScreenState extends ConsumerState<CoachDiscoveryScreen> {
                   ElevatedButton(
                     onPressed: () => context.push('/booking', extra: coach),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary,
-                      foregroundColor: const Color(0xFF0F172A),
+                      backgroundColor: isDark ? AppColors.primary : AppColors.heroLightCta,
+                      foregroundColor: isDark ? AppColors.midnightObsidian : AppColors.heroLightCtaText,
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       shape: RoundedRectangleBorder(borderRadius: AppRadius.brLg),
                       textStyle: AppTextStyles.labelSm.copyWith(fontWeight: FontWeight.w700),
@@ -826,14 +830,17 @@ class _CoachDiscoveryScreenState extends ConsumerState<CoachDiscoveryScreen> {
     ).animate().fadeIn(duration: 250.ms).slideY(begin: 0.05, delay: (index * 40).ms);
   }
 
-  Widget _buildAvatar(CoachModel coach, double size) {
+  Widget _buildAvatar(CoachModel coach, double size, bool isDark) {
     return Container(
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: AppColors.primary.withValues(alpha: 0.15),
+        color: isDark ? AppColors.primary.withValues(alpha: 0.15) : const Color(0xFF20251D),
         borderRadius: AppRadius.brXl,
-        border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
+        border: Border.all(
+          color: isDark ? AppColors.primary.withValues(alpha: 0.3) : AppColors.lightVoltBadge,
+          width: isDark ? 1.0 : 1.5,
+        ),
       ),
       child: ClipRRect(
         borderRadius: AppRadius.brXl,
@@ -841,21 +848,21 @@ class _CoachDiscoveryScreenState extends ConsumerState<CoachDiscoveryScreen> {
             ? Image.network(
                 coach.photoUrl!,
                 fit: BoxFit.cover,
-                errorBuilder: (ctx, err, stack) => _avatarFallback(coach.name, size),
+                errorBuilder: (ctx, err, stack) => _avatarFallback(coach.name, size, isDark),
               )
-            : _avatarFallback(coach.name, size),
+            : _avatarFallback(coach.name, size, isDark),
       ),
     );
   }
 
-  Widget _avatarFallback(String name, double size) {
+  Widget _avatarFallback(String name, double size, bool isDark) {
     return Center(
       child: Text(
         name.isNotEmpty ? name[0].toUpperCase() : 'C',
         style: TextStyle(
-          color: AppColors.primary,
+          color: isDark ? AppColors.primary : AppColors.lightVoltBadge,
           fontSize: size * 0.42,
-          fontWeight: FontWeight.w800,
+          fontWeight: FontWeight.w900,
         ),
       ),
     );
@@ -874,7 +881,7 @@ class _CoachDiscoveryScreenState extends ConsumerState<CoachDiscoveryScreen> {
                 color: (isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.05)),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.person_search_rounded, size: 48, color: AppColors.primary),
+              child: Icon(Icons.person_search_rounded, size: 48, color: isDark ? AppColors.primary : AppColors.lightAccentVolt),
             ),
             const SizedBox(height: SpacingScale.s16),
             Text(
@@ -905,8 +912,8 @@ class _CoachDiscoveryScreenState extends ConsumerState<CoachDiscoveryScreen> {
                 });
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                foregroundColor: const Color(0xFF0F172A),
+                backgroundColor: isDark ? AppColors.primary : AppColors.heroLightCta,
+                foregroundColor: isDark ? AppColors.midnightObsidian : AppColors.heroLightCtaText,
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 shape: RoundedRectangleBorder(borderRadius: AppRadius.brLg),
               ),

@@ -56,7 +56,16 @@ class _PremiumCardState extends State<PremiumCard> {
                     ],
                     stops: const [0.0, 0.3],
                   )
-                : null,
+                : (isDark
+                    ? null
+                    : const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Colors.white,
+                          Color(0xFFFAFAF7),
+                        ],
+                      )),
             border: Border.all(
               color: _hovered ? borderHover : borderBase,
               width: 0.5,
@@ -64,7 +73,7 @@ class _PremiumCardState extends State<PremiumCard> {
             boxShadow: _hovered
                 ? [
                     BoxShadow(
-                      color: (accent ?? AppColors.primary).withValues(alpha: 0.12),
+                      color: (accent ?? (isDark ? AppColors.primary : AppColors.lightAccentVolt)).withValues(alpha: 0.12),
                       blurRadius: 18,
                       offset: const Offset(0, 6),
                     ),
@@ -73,9 +82,14 @@ class _PremiumCardState extends State<PremiumCard> {
                     ? null
                     : const [
                         BoxShadow(
-                          color: Color(0x0A0F172A),
+                          color: AppColors.lightShadow,
                           blurRadius: 12,
                           offset: Offset(0, 3),
+                        ),
+                        BoxShadow(
+                          color: Color(0x0520251D),
+                          blurRadius: 3,
+                          offset: Offset(0, 1),
                         ),
                       ]),
           ),

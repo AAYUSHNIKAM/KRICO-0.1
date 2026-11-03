@@ -36,11 +36,8 @@ void main() {
     expect(
       workspaceDestinations(UserRole.player).map((d) => d.id),
       containsAll([
-        'growth',
         'performance',
         'video',
-        'squad',
-        'challenges',
         'community',
       ]),
     );

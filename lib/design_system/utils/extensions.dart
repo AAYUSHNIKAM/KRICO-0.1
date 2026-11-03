@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import '../colors/app_colors.dart';
 import '../colors/app_color_scheme.dart';
 import '../tokens/spacing_tokens.dart';
@@ -14,15 +14,17 @@ extension ContextExtensions on BuildContext {
       theme.extension<AppColorScheme>() ?? (isDark ? AppColorScheme.dark : AppColorScheme.light);
   AppColorScheme get colorScheme => appColors;
 
-  Color get primaryColor => AppColors.primary;
+  Color get primaryColor => isDark ? AppColors.primary : AppColors.lightPrimary;
   Color get surfaceColor => isDark ? AppColors.surface : AppColors.lightSurface;
+  Color get surfaceSecondaryColor => isDark ? AppColors.surfaceSecondary : AppColors.lightSurfaceSecondary;
   Color get cardColor => isDark ? AppColors.card : AppColors.lightCard;
   Color get textPrimaryColor => isDark ? AppColors.textPrimary : AppColors.lightTextPrimary;
   Color get textSecondaryColor => isDark ? AppColors.textSecondary : AppColors.lightTextSecondary;
   Color get textTertiaryColor => isDark ? AppColors.textTertiary : AppColors.lightTextTertiary;
   Color get borderColor => isDark ? AppColors.border : AppColors.lightBorder;
   Color get dividerColor => isDark ? AppColors.divider : AppColors.lightDivider;
-  Color get voltColor => isDark ? AppColors.volt : AppColors.voltDark;
+  Color get voltColor => isDark ? AppColors.volt : AppColors.lightAccentVolt;
+  Color get orangeColor => isDark ? AppColors.orangeLight : AppColors.lightAccentOrange;
   Color get cyanColor => isDark ? AppColors.cyan : AppColors.cyanDark;
   Color get heroCtaBg => isDark ? AppColors.heroDarkCta : AppColors.heroLightCta;
   Color get heroCtaFg => isDark ? AppColors.heroDarkCtaText : AppColors.heroLightCtaText;

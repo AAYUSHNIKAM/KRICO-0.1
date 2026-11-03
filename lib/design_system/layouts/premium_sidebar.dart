@@ -36,8 +36,9 @@ class _PremiumSidebarTileState extends State<PremiumSidebarTile> {
         : _hovered
             ? (isDark ? AppColors.hover : AppColors.lightHover)
             : Colors.transparent;
+    final accentColor = isDark ? AppColors.primary : AppColors.lightAccentVolt;
     final fgColor = widget.selected
-        ? AppColors.primary
+        ? accentColor
         : (isDark ? AppColors.textSecondary : AppColors.lightTextSecondary);
     final textColor = widget.selected
         ? (isDark ? AppColors.textPrimary : AppColors.lightTextPrimary)
@@ -68,7 +69,7 @@ class _PremiumSidebarTileState extends State<PremiumSidebarTile> {
                       duration: DurationTokens.medium,
                       width: 3,
                       decoration: BoxDecoration(
-                        color: AppColors.primary,
+                        color: accentColor,
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(AppRadius.sm),
                           bottomRight: Radius.circular(AppRadius.sm),
@@ -101,12 +102,12 @@ class _PremiumSidebarTileState extends State<PremiumSidebarTile> {
                             vertical: 1,
                           ),
                           decoration: BoxDecoration(
-                            color: AppColors.primary.withValues(alpha: 0.12),
+                            color: accentColor.withValues(alpha: 0.12),
                             borderRadius: AppRadius.brFull,
                           ),
                           child: Text(
                             widget.badge!,
-                            style: AppTextStyles.captionXs.copyWith(color: AppColors.primary),
+                            style: AppTextStyles.captionXs.copyWith(color: accentColor),
                           ),
                         ),
                     ],
@@ -221,7 +222,7 @@ class _PremiumCollapsedSidebarTileState extends State<PremiumCollapsedSidebarTil
             ? (isDark ? AppColors.hover : AppColors.lightHover)
             : Colors.transparent;
     final fgColor = widget.selected
-        ? AppColors.primary
+        ? (isDark ? AppColors.primary : AppColors.lightAccentVolt)
         : (isDark ? AppColors.textSecondary : AppColors.lightTextSecondary);
 
     final tile = Padding(

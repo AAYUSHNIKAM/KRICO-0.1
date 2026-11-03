@@ -22,6 +22,7 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
     required this.warning,
     required this.danger,
     required this.accentVolt,
+    required this.accentOrange,
     required this.accentCyan,
     required this.heroCtaBackground,
     required this.heroCtaForeground,
@@ -51,6 +52,7 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
   final Color warning;
   final Color danger;
   final Color accentVolt;
+  final Color accentOrange;
   final Color accentCyan;
   final Color heroCtaBackground;
   final Color heroCtaForeground;
@@ -80,6 +82,7 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
     warning: AppColors.warning,
     danger: AppColors.danger,
     accentVolt: Color(0xFFCCFF00),
+    accentOrange: Color(0xFFF97316),
     accentCyan: Color(0xFF00E5FF),
     heroCtaBackground: Color(0xFFCCFF00),
     heroCtaForeground: Color(0xFF090A0F),
@@ -104,15 +107,16 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
     textSecondary: AppColors.lightTextSecondary,
     textTertiary: AppColors.lightTextTertiary,
     textDisabled: AppColors.lightTextDisabled,
-    primary: AppColors.primary,
-    primaryHover: AppColors.primaryHover,
+    primary: AppColors.lightPrimary,
+    primaryHover: AppColors.lightPrimaryHover,
     success: AppColors.success,
     warning: AppColors.warning,
     danger: AppColors.danger,
-    accentVolt: Color(0xFF4D7C0F),
-    accentCyan: Color(0xFF0284C7),
-    heroCtaBackground: Color(0xFF0F172A),
-    heroCtaForeground: Color(0xFFFFFFFF),
+    accentVolt: AppColors.lightAccentVolt,
+    accentOrange: AppColors.lightAccentOrange,
+    accentCyan: AppColors.cyanDark,
+    heroCtaBackground: AppColors.heroLightCta,
+    heroCtaForeground: AppColors.heroLightCtaText,
     cardBorderSubtle: AppColors.lightBorder,
     glassSurface: AppColors.lightGlass,
     gold: AppColors.gold,
@@ -141,6 +145,7 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
     Color? warning,
     Color? danger,
     Color? accentVolt,
+    Color? accentOrange,
     Color? accentCyan,
     Color? heroCtaBackground,
     Color? heroCtaForeground,
@@ -170,6 +175,7 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
       warning: warning ?? this.warning,
       danger: danger ?? this.danger,
       accentVolt: accentVolt ?? this.accentVolt,
+      accentOrange: accentOrange ?? this.accentOrange,
       accentCyan: accentCyan ?? this.accentCyan,
       heroCtaBackground: heroCtaBackground ?? this.heroCtaBackground,
       heroCtaForeground: heroCtaForeground ?? this.heroCtaForeground,
@@ -204,6 +210,7 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
       warning: Color.lerp(warning, other.warning, t)!,
       danger: Color.lerp(danger, other.danger, t)!,
       accentVolt: Color.lerp(accentVolt, other.accentVolt, t)!,
+      accentOrange: Color.lerp(accentOrange, other.accentOrange, t)!,
       accentCyan: Color.lerp(accentCyan, other.accentCyan, t)!,
       heroCtaBackground: Color.lerp(heroCtaBackground, other.heroCtaBackground, t)!,
       heroCtaForeground: Color.lerp(heroCtaForeground, other.heroCtaForeground, t)!,

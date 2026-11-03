@@ -48,44 +48,83 @@ class _TodaysFocusContent extends StatelessWidget {
     final padH = isDesktop ? SpacingScale.s32 : (isTablet ? SpacingScale.s24 : SpacingScale.s16);
     final secColor = isDark ? AppColors.textSecondary : AppColors.lightTextSecondary;
 
-    final focusOptions = [
+    final sportLower = sport.toLowerCase();
+    final List<_FocusData> sportOptions;
+    if (sportLower.contains('cricket')) {
+      sportOptions = [
+        _FocusData(
+          title: 'Batting Footwork & Balance',
+          description: 'Front-foot drive alignment and head position drills.',
+          icon: Icons.sports_cricket_rounded,
+          gradientColors: [const Color(0xFF0284C7), const Color(0xFF0369A1)],
+          tips: '20 shadow drives holding balance at completion for 3 seconds.',
+        ),
+        _FocusData(
+          title: 'Bowling Run-up Cadence',
+          description: 'Gather speed and delivery stride consistency.',
+          icon: Icons.speed_rounded,
+          gradientColors: [const Color(0xFF059669), const Color(0xFF047857)],
+          tips: '6 target deliveries focusing on smooth deceleration.',
+        ),
+      ];
+    } else if (sportLower.contains('badminton') || sportLower.contains('tennis')) {
+      sportOptions = [
+        _FocusData(
+          title: 'Split-Step & Court Agility',
+          description: 'Pre-impact reaction step and lateral recovery velocity.',
+          icon: Icons.sports_tennis_rounded,
+          gradientColors: [const Color(0xFF7C3AED), const Color(0xFF6D28D9)],
+          tips: '4 sets of 8-corner agility shadow footwork.',
+        ),
+        _FocusData(
+          title: 'Kinetic Whip & Wrist Snap',
+          description: 'Pronation mechanics and clean overhead sweet-spot contact.',
+          icon: Icons.flash_on_rounded,
+          gradientColors: [const Color(0xFFD97706), const Color(0xFFB45309)],
+          tips: '15 overhead repetitions focusing on relaxed forearm rotation.',
+        ),
+      ];
+    } else if (sportLower.contains('football') || sportLower.contains('soccer')) {
+      sportOptions = [
+        _FocusData(
+          title: 'First Touch & Directional Control',
+          description: 'Cushioning aerial passes and turning into open space.',
+          icon: Icons.sports_soccer_rounded,
+          gradientColors: [const Color(0xFF2563EB), const Color(0xFF1E40AF)],
+          tips: '30 two-touch wall rebounds alternating both feet.',
+        ),
+      ];
+    } else {
+      sportOptions = [
+        _FocusData(
+          title: 'Athletic Conditioning & Core',
+          description: 'Explosive acceleration and movement stability.',
+          icon: Icons.fitness_center_rounded,
+          gradientColors: [const Color(0xFF0D9488), const Color(0xFF0F766E)],
+          tips: '3 sets of planks, lunges, and high-knee skips.',
+        ),
+      ];
+    }
+
+    final generalOptions = [
       _FocusData(
-        title: 'Improve Left Foot Accuracy',
-        description: 'Focus on non-dominant foot drills during training today.',
-        icon: Icons.sports_soccer_rounded,
-        gradientColors: [const Color(0xFF2563EB), const Color(0xFF1E40AF)],
-        tips: 'Try 20 left-foot passes, 10 left-foot shots on goal.',
-      ),
-      _FocusData(
-        title: 'Sprint Speed',
-        description: 'Acceleration drills to improve your 10m sprint time.',
-        icon: Icons.speed_rounded,
-        gradientColors: [const Color(0xFF059669), const Color(0xFF047857)],
-        tips: '5 sets of 20m sprints with 45s rest between.',
-      ),
-      _FocusData(
-        title: 'Recovery Day',
-        description: 'Active recovery \u2014 light stretching and mobility work.',
+        title: 'Active Mobility & Recovery',
+        description: 'Post-session foam rolling and dynamic joint mobility.',
         icon: Icons.self_improvement_rounded,
-        gradientColors: [const Color(0xFF7C3AED), const Color(0xFF6D28D9)],
-        tips: '15 min stretching, foam rolling, light jog.',
+        gradientColors: [const Color(0xFF4F46E5), const Color(0xFF4338CA)],
+        tips: '15 min hip and hamstring active stretch routine.',
       ),
       _FocusData(
-        title: 'Warm-up Pending',
-        description: 'Complete your pre-training warm-up routine.',
-        icon: Icons.whatshot_rounded,
-        gradientColors: [const Color(0xFFD97706), const Color(0xFFB45309)],
-        tips: 'Jumping jacks, lunges, arm circles, leg swings.',
-      ),
-      _FocusData(
-        title: 'Today\'s Goal',
-        description: 'Set a personal target for today\'s training session.',
+        title: 'Daily Training Commitment',
+        description: 'Lock in your target focus for upcoming sessions.',
         icon: Icons.flag_rounded,
         gradientColors: [const Color(0xFFDC2626), const Color(0xFFB91C1C)],
-        tips: 'Write down one thing you want to improve today.',
+        tips: 'Review coach notes from your last training debrief.',
       ),
     ];
-    final focus = focusOptions[dayOfYear % focusOptions.length];
+
+    final combined = [...sportOptions, ...generalOptions];
+    final focus = combined[dayOfYear % combined.length];
 
     return Padding(
       padding: EdgeInsets.fromLTRB(padH, SpacingScale.s24, padH, 0),

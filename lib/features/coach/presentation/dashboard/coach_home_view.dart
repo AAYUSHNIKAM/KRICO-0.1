@@ -298,7 +298,7 @@ class _CoachHomeViewState extends ConsumerState<CoachHomeView> {
                       color: isDark ? const Color(0xFF090D16) : Colors.white.withValues(alpha: 0.7),
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                        color: isDark ? const Color(0xFF1E293B) : const Color(0xFFE2E8F0),
+                        color: isDark ? const Color(0xFF1E293B) : AppColors.lightBorder,
                         width: 0.5,
                       ),
                     ),
@@ -351,8 +351,8 @@ class _CoachHomeViewState extends ConsumerState<CoachHomeView> {
                       Expanded(
                         child: FilledButton.icon(
                           style: FilledButton.styleFrom(
-                            backgroundColor: AppColors.primary,
-                            foregroundColor: Colors.white,
+                            backgroundColor: isDark ? AppColors.primary : AppColors.heroLightCta,
+                            foregroundColor: isDark ? AppColors.midnightObsidian : AppColors.heroLightCtaText,
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             elevation: 0,
                             shape: RoundedRectangleBorder(
@@ -383,7 +383,7 @@ class _CoachHomeViewState extends ConsumerState<CoachHomeView> {
                             ),
                           ),
                           onPressed: () => WorkspaceNavigation.go(context, 2),
-                          icon: const Icon(Icons.calendar_month_rounded, size: 16, color: AppColors.primary),
+                          icon: Icon(Icons.calendar_month_rounded, size: 16, color: isDark ? AppColors.primary : AppColors.lightAccentVolt),
                           label: Text(
                             widget.destinations.length > 2 ? widget.destinations[2].label : 'Schedule',
                             style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
@@ -566,7 +566,7 @@ class _CoachHomeViewState extends ConsumerState<CoachHomeView> {
                     onPressed: () => context.push('/booking-requests', extra: widget.user.uid),
                     child: Text(
                       'View All ($count)',
-                      style: AppTextStyles.buttonSm.copyWith(color: AppColors.primary),
+                      style: AppTextStyles.buttonSm.copyWith(color: isDark ? AppColors.primary : AppColors.lightAccentVolt),
                     ),
                   ),
                 ],
@@ -577,8 +577,8 @@ class _CoachHomeViewState extends ConsumerState<CoachHomeView> {
                   Expanded(
                     child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primary,
-                        foregroundColor: Colors.white,
+                        backgroundColor: isDark ? AppColors.primary : AppColors.heroLightCta,
+                        foregroundColor: isDark ? AppColors.midnightObsidian : AppColors.heroLightCtaText,
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         shape: RoundedRectangleBorder(borderRadius: AppRadius.brMd),
                       ),
@@ -662,7 +662,7 @@ class _CoachHomeViewState extends ConsumerState<CoachHomeView> {
               _kpiCard(
                 isDark: isDark,
                 icon: Icons.calendar_today_rounded,
-                color: AppColors.primary,
+                color: isDark ? AppColors.primary : AppColors.lightAccentVolt,
                 title: "TODAY'S SESSIONS",
                 value: '${todaySessions.length}',
                 subtitle: todaySessions.isEmpty ? 'Free day' : 'Active today',
@@ -693,7 +693,7 @@ class _CoachHomeViewState extends ConsumerState<CoachHomeView> {
                 icon: Icons.currency_rupee_rounded,
                 color: AppColors.emerald,
                 title: "TODAY'S VALUE",
-                value: '₹${todayEarnings.toInt()}',
+                value: '\u20B9${todayEarnings.toInt()}',
                 subtitle: 'Session billing',
                 onTap: () => WorkspaceNavigation.go(context, 5),
               ),
@@ -759,7 +759,7 @@ class _CoachHomeViewState extends ConsumerState<CoachHomeView> {
     required String subtitle,
     required VoidCallback onTap,
   }) {
-    final cardBg = isDark ? const Color(0xFF131722) : Colors.white;
+    final cardBg = isDark ? const Color(0xFF131722) : AppColors.lightCard;
     final borderColor = isDark ? const Color(0xFF222A3B) : AppColors.lightBorder;
     final textColor = isDark ? AppColors.textPrimary : AppColors.lightTextPrimary;
 
@@ -865,7 +865,7 @@ class _CoachHomeViewState extends ConsumerState<CoachHomeView> {
             color: AppColors.primary.withValues(alpha: 0.12),
             borderRadius: BorderRadius.circular(10),
           ),
-          child: const Icon(Icons.calendar_today_rounded, color: AppColors.primary, size: 18),
+          child: Icon(Icons.calendar_today_rounded, color: isDark ? AppColors.primary : AppColors.lightAccentVolt, size: 18),
         ),
         const SizedBox(width: SpacingScale.s10),
         Expanded(
@@ -907,7 +907,7 @@ class _CoachHomeViewState extends ConsumerState<CoachHomeView> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.tune_rounded, size: 14, color: AppColors.primary),
+                Icon(Icons.tune_rounded, size: 14, color: isDark ? AppColors.primary : AppColors.lightAccentVolt),
                 const SizedBox(width: 4),
                 Text(
                   'Slots',
@@ -1059,7 +1059,7 @@ class _CoachHomeViewState extends ConsumerState<CoachHomeView> {
   }
 
   Widget _buildTimetableSkeleton(bool isDark) {
-    final baseColor = isDark ? const Color(0xFF1E293B) : const Color(0xFFE2E8F0);
+    final baseColor = isDark ? const Color(0xFF1E293B) : AppColors.lightBorder;
     return Column(
       children: List.generate(2, (i) => Container(
         height: 110,
@@ -1068,7 +1068,7 @@ class _CoachHomeViewState extends ConsumerState<CoachHomeView> {
           color: isDark ? const Color(0xFF131722) : Colors.white,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: isDark ? const Color(0xFF222A3B) : const Color(0xFFE2E8F0),
+            color: isDark ? const Color(0xFF222A3B) : AppColors.lightBorder,
             width: 0.8,
           ),
         ),
@@ -1124,7 +1124,7 @@ class _CoachHomeViewState extends ConsumerState<CoachHomeView> {
         color: isDark ? const Color(0xFF131722) : Colors.white,
         borderRadius: BorderRadius.circular(24),
         border: Border.all(
-          color: isDark ? const Color(0xFF222A3B) : const Color(0xFFE2E8F0),
+          color: isDark ? const Color(0xFF222A3B) : AppColors.lightBorder,
           width: 1,
         ),
         boxShadow: [
@@ -1173,7 +1173,7 @@ class _CoachHomeViewState extends ConsumerState<CoachHomeView> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
-              color: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
+              color: isDark ? const Color(0xFF1E293B) : AppColors.lightSurfaceSecondary,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
@@ -1257,10 +1257,10 @@ class _CoachHomeViewState extends ConsumerState<CoachHomeView> {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 11),
                   decoration: BoxDecoration(
-                    color: isDark ? const Color(0xFF1E293B) : const Color(0xFFF8FAFC),
+                    color: isDark ? const Color(0xFF1E293B) : AppColors.lightSurfaceSecondary,
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: isDark ? const Color(0xFF334155) : const Color(0xFFCBD5E1),
+                      color: isDark ? const Color(0xFF334155) : AppColors.lightBorderHover,
                       width: 1,
                     ),
                   ),
@@ -1341,7 +1341,7 @@ class _CoachHomeViewState extends ConsumerState<CoachHomeView> {
         border: Border.all(
           color: isLiveNow
               ? const Color(0xFF10B981)
-              : (isDark ? const Color(0xFF222A3B) : const Color(0xFFE2E8F0)),
+              : (isDark ? const Color(0xFF222A3B) : AppColors.lightBorder),
           width: isLiveNow ? 1.5 : 0.8,
         ),
         boxShadow: [
@@ -1410,10 +1410,10 @@ class _CoachHomeViewState extends ConsumerState<CoachHomeView> {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                         decoration: BoxDecoration(
-                          color: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
+                          color: isDark ? const Color(0xFF1E293B) : AppColors.lightSurfaceSecondary,
                           borderRadius: BorderRadius.circular(14),
                           border: Border.all(
-                            color: isDark ? const Color(0xFF334155) : const Color(0xFFE2E8F0),
+                            color: isDark ? const Color(0xFF334155) : AppColors.lightBorder,
                             width: 0.8,
                           ),
                         ),
@@ -1548,7 +1548,7 @@ class _CoachHomeViewState extends ConsumerState<CoachHomeView> {
                   const SizedBox(height: 14),
                   Divider(
                     height: 1,
-                    color: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
+                    color: isDark ? const Color(0xFF1E293B) : AppColors.lightSurfaceSecondary,
                   ),
                   const SizedBox(height: 12),
                   Row(
@@ -1588,10 +1588,10 @@ class _CoachHomeViewState extends ConsumerState<CoachHomeView> {
                             child: Container(
                               padding: const EdgeInsets.symmetric(vertical: 8),
                               decoration: BoxDecoration(
-                                color: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
+                                color: isDark ? const Color(0xFF1E293B) : AppColors.lightSurfaceSecondary,
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(
-                                  color: isDark ? const Color(0xFF334155) : const Color(0xFFCBD5E1),
+                                  color: isDark ? const Color(0xFF334155) : AppColors.lightBorderHover,
                                   width: 0.8,
                                 ),
                               ),
@@ -1659,10 +1659,10 @@ class _CoachHomeViewState extends ConsumerState<CoachHomeView> {
                         child: Container(
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            color: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
+                            color: isDark ? const Color(0xFF1E293B) : AppColors.lightSurfaceSecondary,
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
-                              color: isDark ? const Color(0xFF334155) : const Color(0xFFCBD5E1),
+                              color: isDark ? const Color(0xFF334155) : AppColors.lightBorderHover,
                               width: 0.8,
                             ),
                           ),
@@ -1791,8 +1791,8 @@ _actionCard(
     required String subtitle,
     required VoidCallback onTap,
   }) {
-    final cardBg = isDark ? const Color(0xFF131722) : Colors.white;
-    final borderColor = isDark ? const Color(0xFF222A3B) : const Color(0xFFE2E8F0);
+    final cardBg = isDark ? const Color(0xFF131722) : AppColors.lightCard;
+    final borderColor = isDark ? const Color(0xFF222A3B) : AppColors.lightBorder;
     final textColor = isDark ? AppColors.textPrimary : AppColors.lightTextPrimary;
     final subColor = isDark ? AppColors.textSecondary : AppColors.lightTextSecondary;
 

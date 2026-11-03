@@ -25,11 +25,8 @@ List<WorkspaceDestination> workspaceDestinations(UserRole role) {
   return switch (role) {
     UserRole.player => [
       home, find, bookings, messages,
-      const WorkspaceDestination('growth', 'Growth', Icons.trending_up, 'Review your training journey, goals and achievements', section: 'Player development'),
-      const WorkspaceDestination('performance', 'Performance', Icons.show_chart, 'Track and compare your training metrics', section: 'Player development'),
+      const WorkspaceDestination('performance', 'Performance & Growth', Icons.show_chart, 'Track your verified training metrics, readiness and reports', section: 'Player development'),
       const WorkspaceDestination('video', 'Video review', Icons.videocam_outlined, 'Upload training footage and review feedback', section: 'Player development'),
-      const WorkspaceDestination('squad', 'Squad goals', Icons.flag_outlined, 'Work towards shared team goals', section: 'Player development'),
-      const WorkspaceDestination('challenges', 'Challenges', Icons.bolt_outlined, 'Keep practice engaging with training challenges', section: 'Player development'),
       venues, community, contracts, profile,
     ],
     UserRole.parent => [
