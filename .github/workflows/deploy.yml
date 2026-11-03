@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -32,7 +32,17 @@ jobs:
         run: flutter pub get
 
       - name: Build Flutter Web
-        run: flutter build web --release --base-href "/KRICO-0.1/"
+        run: |
+          flutter build web --release --base-href "/KRICO-0.1/"
+          touch build/web/.nojekyll
+          cp build/web/index.html build/web/404.html
+
+      - name: Deploy to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/web
+          keep_files: false
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -45,6 +55,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
+    continue-on-error: true
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
