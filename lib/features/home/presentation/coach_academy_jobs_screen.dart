@@ -273,7 +273,7 @@ class CoachAcademyJobsScreen extends ConsumerWidget {
               : _buildApplyButton(
                   context,
                   onPressed: coach != null
-                      ? () => _applyForJob(context, ref, coach, jobId, title)
+                      ? () => _applyForJob(context, ref, coach, jobId, title, d)
                       : null,
                 ),
         ],
@@ -350,7 +350,7 @@ class CoachAcademyJobsScreen extends ConsumerWidget {
               Icon(Icons.send_rounded, size: 16, color: Colors.black),
               SizedBox(width: 8),
               Text(
-                'Submit Candidacy',
+                'Send KRICO Mail & Apply',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 13,
@@ -388,54 +388,256 @@ class CoachAcademyJobsScreen extends ConsumerWidget {
   }
 
   void _applyForJob(
-      BuildContext context, WidgetRef ref, CoachModel coach, String jobId, String title) {
+    BuildContext context,
+    WidgetRef ref,
+    CoachModel coach,
+    String jobId,
+    String title,
+    Map<String, dynamic> jobData,
+  ) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final academyId = jobData['academyId'] as String? ?? '';
+    final sport = jobData['sport'] as String? ?? (coach.sports?.firstOrNull ?? 'General');
+    final salary = jobData['salary'] as String? ?? 'Negotiable';
+
+    final subjectCtrl = TextEditingController(text: 'Application for $title');
+    final phoneCtrl = TextEditingController(text: coach.phone);
+    final expCtrl = TextEditingController(text: '${coach.experience} Years');
+    final compCtrl = TextEditingController(text: salary);
+    final pitchCtrl = TextEditingController(
+      text: coach.bio?.isNotEmpty == true
+          ? 'Dear Academy Director,\n\nI am writing to express my strong interest in the $title position at your academy.\n\n${coach.bio}\n\nI look forward to discussing how my experience can elevate your training programs.'
+          : 'Dear Academy Director,\n\nI am applying for the $title position. With ${coach.experience} years of coaching experience in $sport, I specialize in athlete development and look forward to contributing to your academy.',
+    );
+
     showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: isDark ? const Color(0xFF141926) : Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: Text(
-          'Apply for Position',
-          style: TextStyle(
-            color: isDark ? Colors.white : Colors.black87,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
-        content: Text(
-          'Submit your coaching profile for "$title"? The academy recruitment team will review your qualifications and contact you.',
-          style: TextStyle(color: isDark ? Colors.white70 : Colors.black54),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: Text('Cancel', style: TextStyle(color: isDark ? Colors.white60 : Colors.black54)),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF00E5FF),
-              foregroundColor: Colors.black,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            ),
-            onPressed: () {
-              ref.read(academyServiceProvider).applyForJob(
-                    jobId,
-                    coach.coachId,
-                    coach.name,
-                    coach.email,
-                  );
-              Navigator.pop(ctx);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Applied for "$title" successfully!'),
-                  backgroundColor: AppColors.success,
+      builder: (ctx) => StatefulBuilder(
+        builder: (context, setDialogState) {
+          return Dialog(
+            backgroundColor: isDark ? const Color(0xFF141926) : Colors.white,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 540),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF00E5FF).withValues(alpha: 0.15),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Icon(Icons.mark_email_read_rounded, color: Color(0xFF00E5FF), size: 22),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFF00E5FF).withValues(alpha: 0.15),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: const Text(
+                                      'KRICO MAIL • COACH → ACADEMY',
+                                      style: TextStyle(
+                                        fontSize: 9,
+                                        fontWeight: FontWeight.w900,
+                                        letterSpacing: 0.8,
+                                        color: Color(0xFF00E5FF),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 3),
+                              Text(
+                                'Job Application & Pitch',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w800,
+                                  color: isDark ? Colors.white : Colors.black87,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.close_rounded, size: 20, color: isDark ? Colors.white54 : Colors.black54),
+                          onPressed: () => Navigator.pop(ctx),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Applying for: $title',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: isDark ? AppColors.volt : AppColors.lightAccentVolt,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    _buildMailField('Subject', subjectCtrl, isDark, maxLines: 1),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Expanded(child: _buildMailField('Experience', expCtrl, isDark)),
+                        const SizedBox(width: 10),
+                        Expanded(child: _buildMailField('Phone', phoneCtrl, isDark)),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    _buildMailField('Expected Compensation', compCtrl, isDark),
+                    const SizedBox(height: 10),
+                    _buildMailField(
+                      'Cover Pitch & Coaching Philosophy',
+                      pitchCtrl,
+                      isDark,
+                      maxLines: 4,
+                      hint: 'Describe your training philosophy, past tournament achievements, and availability...',
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: OutlinedButton(
+                            onPressed: () => Navigator.pop(ctx),
+                            style: OutlinedButton.styleFrom(
+                              foregroundColor: isDark ? Colors.white70 : Colors.black87,
+                              side: BorderSide(
+                                color: isDark ? Colors.white24 : Colors.black26,
+                              ),
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                            ),
+                            child: const Text('Cancel'),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          flex: 2,
+                          child: ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF00E5FF),
+                              foregroundColor: Colors.black,
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                            ),
+                            onPressed: () async {
+                              final pitch = pitchCtrl.text.trim();
+                              if (pitch.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Please include a brief pitch note.')),
+                                );
+                                return;
+                              }
+                              await ref.read(academyServiceProvider).sendJobOpeningRequest(
+                                jobId: jobId,
+                                academyId: academyId,
+                                coachId: coach.coachId,
+                                coachName: coach.name,
+                                coachEmail: coach.email,
+                                coachPhone: phoneCtrl.text.trim(),
+                                sport: sport,
+                                experienceYears: expCtrl.text.trim(),
+                                subject: subjectCtrl.text.trim(),
+                                coverPitch: pitch,
+                                expectedCompensation: compCtrl.text.trim(),
+                              );
+                              if (context.mounted) {
+                                Navigator.pop(ctx);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('KRICO Mail sent to academy for "$title"!'),
+                                    backgroundColor: AppColors.success,
+                                  ),
+                                );
+                              }
+                            },
+                            icon: const Icon(Icons.send_rounded, size: 16),
+                            label: const Text('Send KRICO Mail', style: TextStyle(fontWeight: FontWeight.w800)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              );
-            },
-            child: const Text('Confirm Application', style: TextStyle(fontWeight: FontWeight.w800)),
-          ),
-        ],
+              ),
+            ),
+          );
+        },
       ),
+    );
+  }
+
+  Widget _buildMailField(
+    String label,
+    TextEditingController controller,
+    bool isDark, {
+    int maxLines = 1,
+    String? hint,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w700,
+            color: isDark ? Colors.white70 : Colors.black87,
+          ),
+        ),
+        const SizedBox(height: 4),
+        TextField(
+          controller: controller,
+          maxLines: maxLines,
+          style: TextStyle(
+            fontSize: 13,
+            color: isDark ? Colors.white : Colors.black,
+          ),
+          decoration: InputDecoration(
+            hintText: hint,
+            hintStyle: TextStyle(
+              fontSize: 12,
+              color: isDark ? Colors.white38 : Colors.black38,
+            ),
+            isDense: true,
+            filled: true,
+            fillColor: isDark ? const Color(0xFF0F1420) : const Color(0xFFF1F3F5),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(
+                color: isDark ? Colors.white12 : Colors.black12,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(
+                color: isDark ? Colors.white12 : Colors.black12,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(color: Color(0xFF00E5FF), width: 1.5),
+            ),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          ),
+        ),
+      ],
     );
   }
 }

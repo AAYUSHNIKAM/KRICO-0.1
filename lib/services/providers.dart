@@ -396,3 +396,15 @@ final mediaUploadServiceProvider = Provider<MediaUploadService>((ref) {
   final firestore = ref.watch(firestoreProvider);
   return MediaUploadService(storage, firestore);
 });
+
+final coachBatchesProvider = StreamProvider.family.autoDispose<QuerySnapshot<Map<String, dynamic>>, String>((ref, String coachId) {
+  final service = ref.watch(academyServiceProvider);
+  final coachAsync = ref.watch(coachProvider(coachId));
+  final academyId = coachAsync.asData?.value.academyId;
+  return service.getCoachBatches(coachId, academyId: academyId);
+});
+
+final batchStudentsProvider = StreamProvider.family.autoDispose<QuerySnapshot<Map<String, dynamic>>, String>((ref, String batchId) {
+  final service = ref.watch(academyServiceProvider);
+  return service.getBatchStudents(batchId);
+});

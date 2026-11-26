@@ -26,19 +26,22 @@ class LiveStadiumTicketHero extends StatelessWidget {
     final subColor = isDark ? AppColors.textSecondary : AppColors.lightTextSecondary;
 
     final hasSession = sessionDoc != null;
-    final sport = sessionDoc?['sport'] as String? ?? 'Elite Badminton';
-    final venue = sessionDoc?['venue'] as String? ?? 'Krico Grand Arena • Court 3';
-    final coach = sessionDoc?['coachName'] as String? ?? 'Coach Viktor';
+    if (!hasSession) {
+      return _buildNoUpcomingBookingCard(context, isDark, cardBg, borderColor, textColor, subColor);
+    }
+
+    final sport = sessionDoc?['sport'] as String? ?? 'Training Session';
+    final venue = sessionDoc?['venue'] as String? ?? 'Assigned Sports Complex';
+    final coach = sessionDoc?['coachName'] as String? ?? 'Coach';
     final _ = coach;
     final dateTime = sessionDoc?['dateTime'] != null
         ? (sessionDoc!['dateTime'] as dynamic).toDate() as DateTime
-        : DateTime.now().add(const Duration(hours: 2, minutes: 15));
+        : DateTime.now();
 
     final diff = dateTime.difference(DateTime.now());
     final countdownStr = diff.inHours > 0
         ? 'STARTS IN ${diff.inHours}H ${diff.inMinutes % 60}M'
         : 'STARTS IN ${diff.inMinutes.clamp(1, 60)}M';
-
     return Container(
       decoration: BoxDecoration(
         color: cardBg,
@@ -367,6 +370,127 @@ class LiveStadiumTicketHero extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildNoUpcomingBookingCard(
+    BuildContext context,
+    bool isDark,
+    Color cardBg,
+    Color borderColor,
+    Color textColor,
+    Color subColor,
+  ) {
+    return Container(
+      decoration: BoxDecoration(
+        color: cardBg,
+        borderRadius: AppRadius.brXl3,
+        border: Border.all(color: borderColor, width: 0.8),
+        boxShadow: [
+          BoxShadow(
+            color: (isDark ? AppColors.volt : Colors.black).withValues(alpha: isDark ? 0.05 : 0.03),
+            blurRadius: 20,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 3,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: isDark
+                    ? const [AppColors.volt, AppColors.cyan]
+                    : const [AppColors.lightVoltBadge, AppColors.lightAccentOrange, AppColors.lightAccentVolt],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(SpacingScale.s20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Wrap(
+                  spacing: 10,
+                  runSpacing: 8,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    Container(
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(
+                        color: (isDark ? AppColors.volt : AppColors.lightAccentVolt).withValues(alpha: 0.12),
+                        borderRadius: AppRadius.brLg,
+                        border: Border.all(
+                          color: (isDark ? AppColors.volt : AppColors.lightAccentVolt).withValues(alpha: 0.3),
+                        ),
+                      ),
+                      child: Icon(
+                        Icons.confirmation_number_outlined,
+                        color: isDark ? AppColors.volt : AppColors.lightAccentVolt,
+                        size: 20,
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: isDark
+                            ? Colors.white.withValues(alpha: 0.08)
+                            : Colors.black.withValues(alpha: 0.06),
+                        borderRadius: AppRadius.brSm,
+                      ),
+                      child: Text(
+                        'TRAINING CALENDAR OPEN',
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 0.8,
+                          color: subColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: SpacingScale.s12),
+                Text(
+                  'Ready to Train? Book Your Next Session',
+                  style: AppTextStyles.title2.copyWith(
+                    fontWeight: FontWeight.w800,
+                    color: textColor,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  'Connect with certified coaches in 30+ Olympic disciplines. Your official VIP Stadium Pass and QR Gate Check-in activate once your booking is confirmed.',
+                  style: AppTextStyles.bodySm.copyWith(
+                    color: subColor,
+                    height: 1.4,
+                  ),
+                ),
+                const SizedBox(height: SpacingScale.s16),
+                ElevatedButton.icon(
+                  onPressed: () => context.go('/coach-discovery'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: isDark ? AppColors.volt : AppColors.midnightObsidian,
+                    foregroundColor: isDark ? Colors.black : Colors.white,
+                    elevation: 0,
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    shape: RoundedRectangleBorder(borderRadius: AppRadius.brLg),
+                  ),
+                  icon: const Icon(Icons.person_search_rounded, size: 16),
+                  label: const Text(
+                    'Find & Book Coaches',
+                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

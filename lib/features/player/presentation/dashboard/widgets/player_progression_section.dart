@@ -1,7 +1,7 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:fl_chart/fl_chart.dart';
 import '../../../../../design_system/colors/app_colors.dart';
 import '../../../../../design_system/typography/text_styles.dart';
 import '../../../../../design_system/spacing/spacing_scale.dart';

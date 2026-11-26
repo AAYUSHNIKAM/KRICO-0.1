@@ -238,7 +238,7 @@ class KricoXpSystem {
     final total = percentages.fold<double>(0.0, (sum, p) => sum + p.toDouble());
     if ((total - 100.0).abs() > 0.01) {
       final formattedTotal = total.toStringAsFixed(total.truncateToDouble() == total ? 0 : 1);
-      return 'Percentages must total exactly 100%. Current total: %.';
+      return 'Percentages must total exactly 100%. Current total: $formattedTotal%.';
     }
     return null;
   }

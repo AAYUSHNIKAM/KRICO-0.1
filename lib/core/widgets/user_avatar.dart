@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../design_system/colors/app_colors.dart';
@@ -48,15 +49,35 @@ class UserAvatar extends StatelessWidget {
     Widget child;
     final hasPhoto = photoUrl != null && photoUrl!.isNotEmpty;
     if (hasPhoto) {
-      child = ClipRRect(
-        borderRadius: BorderRadius.circular(corner),
-        child: Image.network(
+      final isDataUri = photoUrl!.startsWith('data:');
+      Widget imgWidget;
+      if (isDataUri) {
+        try {
+          final commaIdx = photoUrl!.indexOf(',');
+          final base64Str = commaIdx != -1 ? photoUrl!.substring(commaIdx + 1) : photoUrl!;
+          final bytes = base64Decode(base64Str);
+          imgWidget = Image.memory(
+            bytes,
+            width: size,
+            height: size,
+            fit: BoxFit.cover,
+            errorBuilder: (_, _, _) => _buildInitials(bgColor, fgColor, corner),
+          );
+        } catch (_) {
+          imgWidget = _buildInitials(bgColor, fgColor, corner);
+        }
+      } else {
+        imgWidget = Image.network(
           photoUrl!,
           width: size,
           height: size,
           fit: BoxFit.cover,
           errorBuilder: (_, _, _) => _buildInitials(bgColor, fgColor, corner),
-        ),
+        );
+      }
+      child = ClipRRect(
+        borderRadius: BorderRadius.circular(corner),
+        child: imgWidget,
       );
     } else {
       child = _buildInitials(bgColor, fgColor, corner);

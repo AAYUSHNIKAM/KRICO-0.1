@@ -318,6 +318,92 @@ class AcademyService {
     });
   }
 
+  Future<void> sendJobOpeningRequest({
+    required String jobId,
+    required String academyId,
+    required String coachId,
+    required String coachName,
+    required String coachEmail,
+    String? coachPhone,
+    String? sport,
+    String? experienceYears,
+    required String subject,
+    required String coverPitch,
+    String? expectedCompensation,
+  }) async {
+    final ref = await _firestore.collection('jobApplications').add({
+      'jobId': jobId,
+      'academyId': academyId,
+      'coachId': coachId,
+      'coachName': coachName,
+      'coachEmail': coachEmail,
+      'coachPhone': coachPhone ?? '',
+      'sport': sport ?? 'General',
+      'experienceYears': experienceYears ?? '',
+      'subject': subject,
+      'coverPitch': coverPitch,
+      'expectedCompensation': expectedCompensation ?? 'Negotiable',
+      'senderRole': 'coach',
+      'recipientRole': 'academy',
+      'status': 'applied',
+      'createdAt': FieldValue.serverTimestamp(),
+    });
+
+    if (academyId.isNotEmpty) {
+      await _firestore.collection('notifications').add({
+        'userId': academyId,
+        'title': 'New KRICO Mail: Job Application ??',
+        'body': '$coachName applied for $subject: "$coverPitch"',
+        'type': 'job_application',
+        'refId': ref.id,
+        'createdAt': FieldValue.serverTimestamp(),
+        'read': false,
+      });
+    }
+  }
+
+  Future<void> updateBatchStudentStatus({
+    required String batchId,
+    required String studentId,
+    required String newStatus,
+  }) async {
+    final batch = _firestore.batch();
+    final studentRef = _firestore
+        .collection('batches')
+        .doc(batchId)
+        .collection('students')
+        .doc(studentId);
+
+    final isExiting = newStatus == 'exited';
+    batch.update(studentRef, {
+      'status': newStatus,
+      if (isExiting) 'exitedAt': FieldValue.serverTimestamp(),
+      if (!isExiting) 'reEnrolledAt': FieldValue.serverTimestamp(),
+      'updatedAt': FieldValue.serverTimestamp(),
+    });
+
+    batch.update(_firestore.collection('batches').doc(batchId), {
+      'enrolled': FieldValue.increment(isExiting ? -1 : 1),
+      'currentStudents': FieldValue.increment(isExiting ? -1 : 1),
+      'updatedAt': FieldValue.serverTimestamp(),
+    });
+
+    await batch.commit();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getCoachBatches(String coachId, {String? academyId}) {
+    if (academyId != null && academyId.isNotEmpty) {
+      return _firestore
+          .collection('batches')
+          .where('academyId', isEqualTo: academyId)
+          .snapshots();
+    }
+    return _firestore
+        .collection('batches')
+        .where('coachId', isEqualTo: coachId)
+        .snapshots();
+  }
+
   Stream<QuerySnapshot<Map<String, dynamic>>> getJobApplications(String jobId) {
     return _firestore
         .collection('jobApplications')

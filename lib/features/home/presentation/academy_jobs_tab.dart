@@ -1,3 +1,4 @@
+import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -1185,10 +1186,90 @@ class _ApplicantRow extends ConsumerWidget {
                 ),
             ],
           ),
+          if ((data['coverPitch'] as String? ?? '').isNotEmpty) ...[
+            const SizedBox(height: 10),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: isDark ? const Color(0xFF0F1522) : const Color(0xFFF1F5F9),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: const Color(0xFF00E5FF).withValues(alpha: 0.25),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(Icons.mark_email_read_rounded, size: 14, color: Color(0xFF00E5FF)),
+                      const SizedBox(width: 6),
+                      Expanded(
+                        child: Text(
+                          'KRICO MAIL: ${data['subject'] ?? 'Application Letter'}',
+                          style: const TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w800,
+                            color: Color(0xFF00E5FF),
+                            letterSpacing: 0.5,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    data['coverPitch'] as String,
+                    style: TextStyle(
+                      fontSize: 12,
+                      height: 1.4,
+                      color: isDark ? Colors.white70 : Colors.black87,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 12,
+                    runSpacing: 4,
+                    children: [
+                      if ((data['experienceYears'] as String? ?? '').isNotEmpty)
+                        Text(
+                          'Exp: ${data['experienceYears']}',
+                          style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: isDark ? Colors.white60 : Colors.black54),
+                        ),
+                      if ((data['expectedCompensation'] as String? ?? '').isNotEmpty)
+                        Text(
+                          'Expected: ${data['expectedCompensation']}',
+                          style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w800, color: AppColors.volt),
+                        ),
+                      if ((data['coachPhone'] as String? ?? '').isNotEmpty)
+                        Text(
+                          'Phone: ${data['coachPhone']}',
+                          style: TextStyle(fontSize: 11, color: isDark ? Colors.white60 : Colors.black54),
+                        ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
           const SizedBox(height: 12),
           Row(
             children: [
               _StatusBadge(status: status),
+              const SizedBox(width: 8),
+              if ((data['coachId'] as String? ?? '').isNotEmpty)
+                TextButton.icon(
+                  onPressed: () => context.push('/profile/${data['coachId']}'),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    minimumSize: Size.zero,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                  icon: const Icon(Icons.account_circle_outlined, size: 14, color: AppColors.cyan),
+                  label: const Text('View Coach', style: TextStyle(fontSize: 11, color: AppColors.cyan, fontWeight: FontWeight.w700)),
+                ),
               const Spacer(),
               _StatusDropdown(
                 applicationId: applicationId,
